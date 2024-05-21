@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Библиотека Renga STDL и импорт</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #5FA8A2; /* Бирюзовый цвет */
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77A6F7 3px solid;
+        }
+        header h1 {
+            font-weight: bold;
+        }
+        header a {
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 16px;
+        }
+        header ul {
+            padding: 0;
+            list-style: none;
+        }
+        header li {
+            display: inline;
+            padding: 0 20px 0 20px;
+        }
+        .hidden {
+            display: none;
+        }
+        .table-container {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0282B0;
+            color: white;
+        }
+        .add-remove-buttons {
+            margin: 20px 0;
+        }
+        .add-remove-buttons button {
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #0282B0;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .add-remove-buttons button:hover {
+            background-color: #555;
+        }
+        .save-button, .edit-button {
+            margin-left: 10px;
+            background-color: #5FA8A2; /* Бирюзовый цвет */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .save-button:hover, .edit-button:hover {
+            background-color: #48D1CC;
+        }
+        .thumbnail {
+            max-width: 100px;
+            max-height: 100px;
+        }
+        .shifted {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body onload="initialize()">
+    <header>
+        <div class="container">
+            <h1>Библиотека Renga STDL и импорт</h1>
+        </div>
+    </header>
+    <div class="container">
+        <div id="step1" class="shifted">
+            <h2>Выберите категорию</h2>
+            <select id="category" onchange="loadSubcategories()">
+                <option value="">Выберите категорию</option>
+                <option value="000_ANNOTATIONS">000 АННОТАЦИИ, НАДПИСИ</option>
+                <option value="0100_ARCHITECTURE">0100 АРХИТЕКТУРА</option>
+                <option value="0200_STRUCTURAL">0200 КОНСТРУКТИВ</option>
+                <option value="0300_0500_PIPES">0300-0500 ТРУБОПРОВОДЫ</option>
+                <option value="0500_0700_DUCTS">0500-0700 ВОЗДУХОВОДЫ</option>
+                <option value="0600_WEAK_CURRENTS">0600 СЛАБЫЕ ТОКИ</option>
+                <option value="0700_ELECTRICS">0700 ЭЛЕКТРИКА</option>
+                <option value="0800_TECHNOLOGY">0800 ТЕХНОЛОГИЯ</option>
+            </select>
+        </div>
+        <div id="step2" class="hidden shifted">
+            <h2>Выберите подкатегорию</h2>
+            <select id="subcategory" onchange="showCatalog()">
+                <!-- Подкатегории будут загружаться здесь динамически -->
+            </select>
+        </div>
+        <div id="catalog-container" class="hidden shifted">
+            <h2>Каталог разработанных элементов</h2>
+            <div class="add-remove-buttons">
+                <button onclick="addRow()">Добавить строку</button>
+                <button onclick="removeRow()">Удалить выбранные строки</button>
+            </div>
+            <div class="table-container">
+                <table id="catalog">
+                    <thead>
+                        <tr>
+                            <th>Выбрать</th>
+                            <th>ID</th>
+                            <th>Название</th>
+                            <th>Типоразмеры (ШхВхГ)</th>
+                            <th>Дата создания</th>
+                            <th>Дата обновления</th>
+                            <th>Статус готовности</th>
+                            <th>Источник разработки</th>
+                            <th>Разработчик</th>
+                            <th>Примечания</th>
+                            <th>Ссылка для скачивания</th>
+                            <th>Фото</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Строки таблицы будут добавляться здесь динамически -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script>
+        const subcategories = {
+            "000_ANNOTATIONS": [
+                "0000 Начальный вид",
+                "0001-0030 Оформление ИС (марки)",
+                "0030-0040 Профили",
+                "0050 Высотные отметки, отметки уровня",
+                "0060 Наименования видов, уровней",
+                "0070 Основная надпись",
+                "0080-0090 Элементы узлов, УГО"
+            ],
+            "0100_ARCHITECTURE": [
+                "0101 Двери",
+                "0102 Окна",
+                "0103-120 Обобщенные модели",
+                "0103 Решетки декоративные",
+                "0104 Семейства для МГН",
+                "0105 Элементы зонирования помещений",
+                "0106 Декоративные элементы интерьера",
+                "0107 Фасадные элементы",
+                "0108 Элементы кровли",
+                "0109 Козырьки",
+                "0121 Ворота",
+                "0122 Перемычки",
+                "0123 Вуты",
+                "0124 Колонны, стойки",
+                "0125 Подвесные потолки",
+                "0126 Фальшпол",
+                "0127 Стены и витражи",
+                "0128 Облицовка",
+                "0129 Мебель",
+                "0130 Антураж",
+                "0131 Парковка",
+                "0132 Навесные фасады",
+                "0133 Лестницы, площадки",
+                "0134 Ограждения, перила",
+                "0135 Эскалаторы",
+                "0136 Лифты",
+                "0137 Турникеты",
+                "0138 Транспорт, машины",
+                "0139 Оборудование метро",
+                "0140 Лотки, трапы, приямки",
+                "0141 Крыши, люки",
+                "0142 Сантехнические приборы",
+                "0143 Осветительные приборы",
+                "0144 Отопительное оборудование",
+                "0145 Электрооборудование",
+                "0146 Противопожарное оборудование",
+                "0170 Проемы, отверстия, ниши",
+                "0171 Шахты, вентканалы",
+                "0172 Карнизы"
+            ],
+            "0200_STRUCTURAL": [
+                "0200 Приямки, Лотки",
+                "0201 Фундаменты отдельные",
+                "0202 Фундаменты под стены",
+                "0204 Перекрытия",
+                "0205 Лестницы",
+                "0206 Колонны",
+                "0207 Балки",
+                "0208 Закладные детали",
+                "0209 Проемы, отверстия, стены",
+                "0210 Колонны-двутавры прокатные",
+                "0211 Колонны составные и сварные",
+                "0212 Фермы",
+                "0213 Балки-двутавры прокатные",
+                "0214 Балки составные и сварные",
+                "0215 Арматурные профили",
+                "0216 Арматура IFC",
+                "0217 Арматура обрамления и усиления",
+                "0218 Ниши",
+                "0219 Такелажное оборудование",
+                "0220 Узлы металлоконструкций"
+            ],
+            "0300_0500_PIPES": [
+                "0301 Краны",
+                "0302 Фильтры",
+                "0303 Компенсаторы",
+                "0304 Грязевики",
+                "0305-0320 Датчики Трубопроводные",
+                "0305 Манометр",
+                "0306 Термометр",
+                "0307 Счетчики",
+                "0308 Сигнализаторы",
+                "0309 Расходомер",
+                "0310 Теплосчетчик",
+                "0311 Термоманометр",
+                "0312 Головка термостатическая",
+                "0313 Преобразователь",
+                "0314 Тепловычислитель",
+                "0315 Датчик",
+                "0321 Воздухоотводчики",
+                "0322 Затворы",
+                "0323 Задвижки",
+                "0324 Заслонки",
+                "0325-0340 Клапаны",
+                "0325 Клапан обратный",
+                "0326 Клапан балансировочный",
+                "0327 Клапан терморегулятор",
+                "0328 Клапан регулирующий",
+                "0329 Клапан редукционный",
+                "0330 Клапан предохранительный",
+                "0331 Клапан электромагнитный",
+                "0332 Клапан мембранный",
+                "0333 Клапан запорный",
+                "0334 Клапан противопожарный",
+                "0341 Вентиль",
+                "0342 Гибкие подводки",
+                "0343 Водонагреватели",
+                "0344 Насосы",
+                "0345 Вакуумные станции",
+                "0346 Радиаторы",
+                "0347 Конвекторы",
+                "0348 Регистры",
+                "0349 Разделители систем",
+                "0350 Резервуары, баки",
+                "0351-0352 Кондиционеры",
+                "0351 Внешний блок",
+                "0352 Внутренний блок",
+                "0353 Теплообменники",
+                "0354-0360 Конденсатор",
+                "0354 Конденсатор воздушный",
+                "0355 Конденсатор водяной",
+                "0361 Установки поддержания давления",
+                "0362 Установки повышения давления",
+                "0363 Узлы регулирования",
+                "0364 Коллектор",
+                "0365 Пожарные шкафы",
+                "0366 Спринклеры",
+                "0367-0390 Фитинги",
+                "0367 расширитель",
+                "0368 бобышки",
+                "0369 фланцы",
+                "0370 отводы",
+                "0371 врезки",
+                "0372 тройники",
+                "0373 крестовины",
+                "0374 заглушки, ограничители",
+                "0375 футорки, сгоны",
+                "0376 сгоны",
+                "0377 гильзы",
+                "0378 ниппель",
+                "0379 адаптер",
+                "0380 переход",
+                "0381 зажимы",
+                "0382 хомуты",
+                "0383 штуцер",
+                "0384 муфты",
+                "0385 ревизии",
+                "0391-0410 Сантехническое оборудование",
+                "0391 писсуары",
+                "0392 поддоны",
+                "0393 раковины",
+                "0394 трапы, сливы",
+                "0395 смесители",
+                "0396 умывальники",
+                "0397 унитазы",
+                "0398 ванны",
+                "0399 сифоны",
+                "0400 душевые кабины",
+                "0401 воронки",
+                "0402 стиральные машины (ярлык на бытовые приборы ТХ)",
+                "0403 полотенцесушители (ярлык на бытовые приборы ТХ)",
+                "0411 Фанкойлы",
+                "0412 Чиллеры",
+                "0413 Узлы крепления",
+                "0414 Холодильные шкафы"
+            ],
+            "0500_0700_DUCTS": [
+                "0501-0510 Демпферы",
+                "0501 Гибкая вставка",
+                "0502 Камера статического давления",
+                "0503 Соединитель мягкий",
+                "0504 Шумоглушитель",
+                "0505 Глушитель пластинчатый",
+                "0506 Фильтрующая вставка",
+                "0507 Манжеты",
+                "0511 Заслонки",
+                "0512 Фильтры",
+                "0513-0520 Воздухораспределители",
+                "0513 Решетки",
+                "0514 Диффузоры",
+                "0515 Зонты",
+                "0521-0530 Клапаны",
+                "0521 Клапан обратный",
+                "0522 Клапан противопожарный",
+                "0523 Клапан канальный",
+                "0524 Клапан стеновой",
+                "0525 Клапан двойного действия",
+                "0526 Клапан морозостойкий",
+                "0527 Клапан дроссель",
+                "0528 Клапан воздушный",
+                "0531 Узел стыковочный",
+                "0532-0540 Вентиляционные установки",
+                "0532 Вытяжные",
+                "0533 Приточные",
+                "0534 Приточно-вытяжные",
+                "0541-0570 Фитинги",
+                "0541-0550 Круглые",
+                "0541 Тройник",
+                "0542 Отвод",
+                "0543 Крестовина",
+                "0544 Заглушка",
+                "0545 Хомут",
+                "0545 Врезка",
+                "0547 Соединение",
+                "0548 Переход",
+                "0551-0560 Прямоугольные",
+                "0551 Тройник",
+                "0552 Отвод",
+                "0553 Крестовина",
+                "0554 Заглушка",
+                "0555 Хомут",
+                "0556 Врезка",
+                "0557 Соединение",
+                "0558 Переход",
+                "0561 Переходник",
+                "0562-0570 Вентиляторы",
+                "0562 Дымоудаления",
+                "0563 Крышные",
+                "0564 Радиальный",
+                "0565 Осевой",
+                "0566 Канальный",
+                "0567 Специализированные вентиляторы",
+                "0571-0580 Воздухонагреватели",
+                "0571 Электронагреватель",
+                "0572 Тепловентилятор",
+                "0573 Пароувлажнитель",
+                "0574 Водяной нагреватель",
+                "0575 Компрессорный агрегат",
+                "0576 Холодильный агрегат",
+                "0581 Воздухоохладители",
+                "0582 Ревизии"
+            ],
+            "0600_WEAK_CURRENTS": [
+                "0600 Элементы узлов",
+                "0601 Системы видеонаблюдения",
+                "0602 СКУД",
+                "0603 Часофикация",
+                "0604 Охранная сигнализация",
+                "0605 Оборудование",
+                "0606 Шкафы",
+                "0607 Выключатели",
+                "0608 Щиты распределительные",
+                "0609 Розетки",
+                "0610 Ответвительные коробки",
+                "0614 Приводы",
+                "0615 Датчики",
+                "0616 Кронштейны",
+                "0617 Предохранительные устройства",
+                "0618 Телефонные устройства",
+                "0619 Системы охрано-пожаротушения",
+                "0620 Считыватель"
+            ],
+            "0700_ELECTRICS": [
+                "0700-0710 Осветительные приборы",
+                "0711 Шинопроводы",
+                "0712 Шкафы",
+                "0713 Кронштейны",
+                "0714 Электроприборы",
+                "0715 Молниезащита"
+            ],
+            "0800_TECHNOLOGY": [
+                "0830 ГПМ",
+                "0840 Мусоропровод",
+                "0850 Спортивное оборудование",
+                "0860 Медицинское оборудование"
+            ]
+        };
+
+        function initialize() {
+            loadSubcategories();
+            loadData();
+        }
+
+        function loadSubcategories() {
+            const categorySelect = document.getElementById('category');
+            const subcategorySelect = document.getElementById('subcategory');
+            const selectedCategory = categorySelect.value;
+
+            subcategorySelect.innerHTML = '<option value="">Выберите подкатегорию</option>';
+
+            if (selectedCategory && subcategories[selectedCategory]) {
+                subcategories[selectedCategory].forEach(subcategory => {
+                    const option = document.createElement('option');
+                    option.value = subcategory;
+                    option.textContent = subcategory;
+                    subcategorySelect.appendChild(option);
+                });
+                document.getElementById('step2').classList.remove('hidden');
+            } else {
+                document.getElementById('step2').classList.add('hidden');
+                document.getElementById('catalog-container').classList.add('hidden');
+            }
+        }
+
+        function showCatalog() {
+            if (document.getElementById('subcategory').value) {
+                document.getElementById('catalog-container').classList.remove('hidden');
+                loadData();
+            } else {
+                document.getElementById('catalog-container').classList.add('hidden');
+            }
+        }
+
+        function saveRow(button) {
+            const row = button.parentElement.parentElement;
+            const id = row.cells[1].innerText;
+            const name = row.cells[2].childNodes[0].value;
+            const dimensions = row.cells[3].childNodes[0].value;
+            const dateCreated = row.cells[4].childNodes[0].value;
+            const dateUpdated = row.cells[5].childNodes[0].value;
+            const readinessStatus = row.cells[6].childNodes[0].value;
+            const sourceOfDevelopment = row.cells[7].childNodes[0].value;
+            const developer = row.cells[8].childNodes[0].value;
+            const remarks = row.cells[9].childNodes[0].value;
+            const downloadLink = row.cells[10].childNodes[0].value;
+            const fileInput = row.cells[11].childNodes[0];
+            const photo_file = fileInput.files[0];
+            const photo = fileInput.files[0].name;
+
+            const selectedCategory = document.getElementById('category').value;
+            const selectedSubcategory = document.getElementById('subcategory').value;
+            let data = []
+            fetch(document.URL + 'items/' + selectedCategory + '/' + selectedSubcategory, {
+                method: 'GET'
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    data = json;
+                    const rowIndex = data.findIndex(item => item.id === id);
+                    if (rowIndex !== -1) {
+                        data[rowIndex] = { id, name, dimensions, dateCreated, dateUpdated, readinessStatus, sourceOfDevelopment, developer, remarks, downloadLink, photo, selectedCategory, selectedSubcategory };
+                    } else {
+                        data.push({ id, name, dimensions, dateCreated, dateUpdated, readinessStatus, sourceOfDevelopment, developer, remarks, downloadLink, photo, selectedCategory, selectedSubcategory });
+                    }
+                    console.log(JSON.stringify(data))
+
+                    fetch(document.URL + 'items/', {
+                        method: 'POST',
+                        body: JSON.stringify(data),
+                        headers: {
+                            'Content-type': 'application/json; charset=UTF-8'
+                        }
+                    });
+
+                    file_input = new FormData()
+                    file_input.append('file', photo_file)
+                    file_input.append('user', 'user')
+
+                    fetch(document.URL + 'uploadfile/', {
+                        method: 'POST',
+                        body: file_input,
+                    })
+                        .then((response) => {
+                            const img = document.createElement('img');
+                            img.src = document.URL + 'getfile/' + photo;
+                            img.className = "thumbnail";
+                            row.cells[11].innerHTML = '';
+                            row.cells[11].appendChild(img);
+                        });
+
+                    // Сделайте поля ввода недоступными
+                    row.cells[2].childNodes[0].disabled = true;
+                    row.cells[3].childNodes[0].disabled = true;
+                    row.cells[4].childNodes[0].disabled = true;
+                    row.cells[5].childNodes[0].disabled = true;
+                    row.cells[6].childNodes[0].disabled = true;
+                    row.cells[7].childNodes[0].disabled = true;
+                    row.cells[8].childNodes[0].disabled = true;
+                    row.cells[9].childNodes[0].disabled = true;
+                    row.cells[10].childNodes[0].disabled = true;
+
+                    // Измените кнопку на "Редактировать"
+                    button.innerText = "Редактировать";
+                    button.className = "edit-button";
+                    button.onclick = function () { editRow(button); };
+                });
+        }
+
+        function editRow(button) {
+            const row = button.parentElement.parentElement;
+
+            // Сделайте поля ввода доступными
+            row.cells[2].childNodes[0].disabled = false;
+            row.cells[3].childNodes[0].disabled = false;
+            row.cells[4].childNodes[0].disabled = false;
+            row.cells[5].childNodes[0].disabled = false;
+            row.cells[6].childNodes[0].disabled = false;
+            row.cells[7].childNodes[0].disabled = false;
+            row.cells[8].childNodes[0].disabled = false;
+            row.cells[9].childNodes[0].disabled = false;
+            row.cells[10].childNodes[0].disabled = false;
+
+            const fileInput = document.createElement("input");
+            fileInput.type = "file";
+            row.cells[11].innerHTML = '';
+            row.cells[11].appendChild(fileInput);
+
+            // Измените кнопку на "Сохранить"
+            button.innerText = "Сохранить";
+            button.className = "save-button";
+            button.onclick = function () { saveRow(button); };
+        }
+
+        function saveData() {
+            const table = document.getElementById("catalog").getElementsByTagName('tbody')[0];
+            const rows = table.rows;
+            let data = [];
+            const selectedCategory = document.getElementById('category').value;
+            const selectedSubcategory = document.getElementById('subcategory').value;
+
+            for (let i = 0; i < rows.length; i++) {
+                let row = rows[i];
+                let rowData = {
+                    id: row.cells[1].innerText,
+                    name: row.cells[2].childNodes[0].value,
+                    dimensions: row.cells[3].childNodes[0].value,
+                    dateCreated: row.cells[4].childNodes[0].value,
+                    dateUpdated: row.cells[5].childNodes[0].value,
+                    readinessStatus: row.cells[6].childNodes[0].value,
+                    sourceOfDevelopment: row.cells[7].childNodes[0].value,
+                    developer: row.cells[8].childNodes[0].value,
+                    remarks: row.cells[9].childNodes[0].value,
+                    downloadLink: row.cells[10].childNodes[0].value,
+                    photo: row.cells[11].childNodes[0].value.name,
+                    selectedCategory: document.getElementById('category').value,
+                    selectedSubcategory: document.getElementById('subcategory').value
+                };
+                data.push(rowData);
+            }
+
+            fetch(document.URL + 'items/', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8'
+                }
+            });
+        }
+
+        function loadData() {
+            const table = document.getElementById("catalog").getElementsByTagName('tbody')[0];
+            table.innerHTML = '';  // Очистить существующие строки
+
+            const selectedCategory = document.getElementById('category').value;
+            const selectedSubcategory = document.getElementById('subcategory').value;
+
+            fetch(document.URL + 'items/' + selectedCategory + '/' + selectedSubcategory, {
+                method: 'GET'
+            })
+                .then((response) => response.json())
+                .then((json) => {
+                    data = json 
+                    for (let i = 0; i < data.length; i++) {
+                        const row = table.insertRow(i);
+
+                        const cell1 = row.insertCell(0);
+                        const element1 = document.createElement("input");
+                        element1.type = "checkbox";
+                        cell1.appendChild(element1);
+
+                        const cell2 = row.insertCell(1);
+                        cell2.innerHTML = data[i].id;
+
+                        const cell3 = row.insertCell(2);
+                        const element3 = document.createElement("input");
+                        element3.type = "text";
+                        element3.value = data[i].name;
+                        cell3.appendChild(element3);
+                        element3.disabled = true;
+
+                        const cell4 = row.insertCell(3);
+                        const element4 = document.createElement("input");
+                        element4.type = "text";
+                        element4.value = data[i].dimensions;
+                        cell4.appendChild(element4);
+                        element4.disabled = true;
+
+                        const cell5 = row.insertCell(4);
+                        const element5 = document.createElement("input");
+                        element5.type = "date";
+                        element5.value = data[i].dateCreated.substring(0, 10);
+                        cell5.appendChild(element5);
+                        element5.disabled = true;
+
+                        const cell6 = row.insertCell(5);
+                        const element6 = document.createElement("input");
+                        element6.type = "date";
+                        element6.value = data[i].dateUpdated.substring(0, 10);
+                        cell6.appendChild(element6);
+                        element6.disabled = true;
+
+                        const cell7 = row.insertCell(6);
+                        const element7 = document.createElement("select");
+                        ["В разработке", "Тестирование", "Готово к использованию"].forEach(status => {
+                            const option = document.createElement("option");
+                            option.value = status;
+                            option.text = status;
+                            element7.appendChild(option);
+                        });
+                        element7.value = data[i].readinessStatus;
+                        cell7.appendChild(element7);
+                        element7.disabled = true;
+
+                        const cell8 = row.insertCell(7);
+                        const element8 = document.createElement("input");
+                        element8.type = "text";
+                        element8.value = data[i].sourceOfDevelopment;
+                        cell8.appendChild(element8);
+                        element8.disabled = true;
+
+                        const cell9 = row.insertCell(8);
+                        const element9 = document.createElement("input");
+                        element9.type = "text";
+                        element9.value = data[i].developer;
+                        cell9.appendChild(element9);
+                        element9.disabled = true;
+
+                        const cell10 = row.insertCell(9);
+                        const element10 = document.createElement("input");
+                        element10.type = "text";
+                        element10.value = data[i].remarks;
+                        cell10.appendChild(element10);
+                        element10.disabled = true;
+
+                        const cell11 = row.insertCell(10);
+                        const element11 = document.createElement("input");
+                        element11.type = "text";
+                        element11.value = data[i].downloadLink;
+                        cell11.appendChild(element11);
+                        element11.disabled = true;
+
+                        const cell12 = row.insertCell(11);
+                        const img = document.createElement('img');
+                        img.src = document.URL + 'getfile/' + data[i].photo;
+                        img.className = "thumbnail";
+                        cell12.appendChild(img);
+
+                        const cell13 = row.insertCell(12);
+                        const editButton = document.createElement("button");
+                        editButton.innerText = "Редактировать";
+                        editButton.className = "edit-button";
+                        editButton.onclick = function () { editRow(editButton); };
+                        cell13.appendChild(editButton);
+                    }
+                });
+        }
+
+        function addRow() {
+            const table = document.getElementById("catalog").getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+            const row = table.insertRow(rowCount);
+
+            const cell1 = row.insertCell(0);
+            const element1 = document.createElement("input");
+            element1.type = "checkbox";
+            cell1.appendChild(element1);
+
+            const cell2 = row.insertCell(1);
+            cell2.innerHTML = rowCount + 1;
+
+            const cell3 = row.insertCell(2);
+            const element3 = document.createElement("input");
+            element3.type = "text";
+            cell3.appendChild(element3);
+
+            const cell4 = row.insertCell(3);
+            const element4 = document.createElement("input");
+            element4.type = "text";
+            cell4.appendChild(element4);
+
+            const cell5 = row.insertCell(4);
+            const element5 = document.createElement("input");
+            element5.type = "date";
+            cell5.appendChild(element5);
+
+            const cell6 = row.insertCell(5);
+            const element6 = document.createElement("input");
+            element6.type = "date";
+            cell6.appendChild(element6);
+
+            const cell7 = row.insertCell(6);
+            const element7 = document.createElement("select");
+            ["В разработке", "Тестирование", "Готово к использованию"].forEach(status => {
+                const option = document.createElement("option");
+                option.value = status;
+                option.text = status;
+                element7.appendChild(option);
+            });
+            cell7.appendChild(element7);
+
+            const cell8 = row.insertCell(7);
+            const element8 = document.createElement("input");
+            element8.type = "text";
+            cell8.appendChild(element8);
+
+            const cell9 = row.insertCell(8);
+            const element9 = document.createElement("input");
+            element9.type = "text";
+            cell9.appendChild(element9);
+
+            const cell10 = row.insertCell(9);
+            const element10 = document.createElement("input");
+            element10.type = "text";
+            cell10.appendChild(element10);
+
+            const cell11 = row.insertCell(10);
+            const element11 = document.createElement("input");
+            element11.type = "text";
+            cell11.appendChild(element11);
+
+            const cell12 = row.insertCell(11);
+            const element12 = document.createElement("input");
+            element12.type = "file";
+            cell12.appendChild(element12);
+
+            const cell13 = row.insertCell(12);
+            const saveButton = document.createElement("button");
+            saveButton.innerText = "Сохранить";
+            saveButton.className = "save-button";
+            saveButton.onclick = function () { saveRow(saveButton); };
+            cell13.appendChild(saveButton);
+
+            saveData();
+        }
+
+        function removeRow() {
+            const table = document.getElementById("catalog").getElementsByTagName('tbody')[0];
+            const rowCount = table.rows.length;
+
+            for (let i = rowCount - 1; i >= 0; i--) {
+                const row = table.rows[i];
+                const chkbox = row.cells[0].childNodes[0];
+                if (chkbox && chkbox.checked) {
+                    table.deleteRow(i);
+                }
+            }
+
+            saveData();
+        }
+
+        window.onbeforeunload = saveData;
+    </script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+#chat-container {
+    width: 90%;
+    margin: auto;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    padding: 20px;
+}
+
+#message-container {
+    height: 80vh;
+    overflow-y: scroll;
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#message-input {
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
