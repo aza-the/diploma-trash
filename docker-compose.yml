@@ -7,21 +7,8 @@ services:
       dockerfile: ./Dockerfile
     image: image
     restart: always
-    depends_on:
-    - ollama 
     ports:
     - "5000"
-
-  ollama:
-    image: ollama/ollama
-    ports:
-    - "11434:11434"
-    volumes:
-      - ./ollama/ollama:/root/.ollama
-    container_name: ollama
-    pull_policy: always
-    tty: true
-    restart: always
 
   nginx:
     image: nginx:1.24.0
