@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Квартиры</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <!-- Font awesome 5-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', path='/flats/styles.css') }}">
+</head>
+<body>
+    <div id="mySidenav" class="sidenav">
+        <a id="about" href="javascript:void(0);">Руководство</a>
+        <a id="district" href="javascript:void(0);">Район</a>
+        <a id="underground" href="javascript:void(0);">Метро</a>
+        <a id="flat_sizes" href="javascript:void(0);">Размер квартиры</a>
+        <a id="renovation" href="javascript:void(0);">Ремонт</a>
+        <a id="building" href="javascript:void(0);">Здание</a>
+        <a id="type_of_building" href="javascript:void(0);">Здания</a>
+        <a id="walls" href="javascript:void(0);">Стены</a>
+    </div>
+
+    <div class="ticker">
+        <div className="scroll">
+            <div class="ticker_item" id="ticker_1">
+                Квартиры Доллар по тридцать <span>Квартиры </span>
+                Квартиры Квартиры <span>Квартиры </span>
+            </div>
+            <div class="ticker_item" id="ticker_2">
+                <span>Квартиры </span> Доллар по тридцать <span>Квартиры </span>
+                Квартиры Квартиры <span> Квартиры </span>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="main">
+
+        <form method="post">
+
+            <div class="content_div" id="about_main_div">
+                <img class="nav_img" id="about_img" src="{{ url_for('static', path='/images/nav_imgs/about.png') }}" alt="about">
+                <br><br>
+                <p class="about_text">
+                    Для расчёта рыночной стоимости <br> недвижимости необходимо заполнить все <br> поля характеристик недвижимости 
+                    или загрузите эксель <br> файл нажав на кнопку загрузить.
+                </p>
+                <br>
+                <input class="btn btn-success" type="button" name="start" id="start" value="Начать">
+                <input class="btn btn-success" type="button" name="load" id="load" value="Загрузить">
+            </div>
+
+            <br><br>
+
+            <div class="content_div" id="district_main_div">
+                <img class="nav_img" id="district_img" src="{{ url_for('static', path='/images/nav_imgs/district.png') }}" alt="district">
+                <br> 
+                <img class="nav_img" id="ds_img" src="{{ url_for('static', path='/images/imgs/district_img.png') }} " alt="about">
+                <div class="und_div">
+                    <label for="district_l" class="label_class">Выберите ваш район</label>
+                    <input class="form-control" type="text" name="district_l" list="district_list" placeholder="р-н Западный">
+                    <datalist id="district_list">
+                        <option value="р-н Лефортово">
+                        <option value="р-н Перово">
+                        <option value="Томилино рп">
+                        <option value="р-н Нижегородский">
+                        <option value="р-н Соколиная гора">
+                        <option value="р-н Западный">
+                        <option value="мкр. Центр">
+                        <option value="р-н Залинейный">
+                        <option value="Опалиха микрорайон">
+                        <option value="р-н Митино">
+                        <option value="мкр. Павшинская пойма">
+                        <option value="Рождествено село">
+                        <option value="мкр. СГШ">
+                        <option value="мкр. Павшино">
+                        <option value="р-н Южное Тушино">
+                        <option value="мкр. Южный">
+                        <option value="Путилково деревня">
+                        <option value="мкр. Райцентр">
+                        <option value="р-н Северное Тушино">
+                        <option value="Отрадное поселок">
+                        <option value="Раздоры деревня">
+                        <option value="Аристово деревня">
+                        <option value="Нахабино рп">
+                        <option value="мкр. Новогорск">
+                        <option value="р-н Кунцево">
+                        <option value="мкр. Опалиха">
+                        <option value="мкр. Сходня">
+                        <option value="Сабурово деревня">
+                        <option value="р-н Строгино">
+                        <option value="Дедовск">
+                        <option value="Красный Поселок деревня">
+                        <option value="Голубое деревня">
+                        <option value="Черная деревня">
+                        <option value="р-н Покровское-Стрешнево">
+                        <option value="р-н Таганский">
+                        <option value="Степаньково деревня">
+                        <option value="р-н Даниловский">
+                        <option value="р-н Южнопортовый">
+                        <option value="р-н Обручевский">
+                        <option value="р-н Проспект Вернадского">
+                        <option value="р-н Ломоносовский">
+                        <option value="р-н Тропарево-Никулино">
+                        <option value="р-н Черемушки">
+                        <option value="р-н Мещанский">
+                        <option value="р-н Красносельский">
+                        <option value="р-н Тимирязевский">
+                        <option value="р-н Тверской">
+                        <option value="р-н Головинский">
+                        <option value="р-н Бутырский">
+                        <option value="р-н Савеловский">
+                        <option value="р-н Коптево">
+                        <option value="р-н Марфино">
+                        <option value="р-н Нагатинский затон">
+                        <option value="р-н Гагаринский">
+                        <option value="р-н Хамовники">
+                        <option value="р-н Донской">
+                        <option value="р-н Якиманка">
+                        <option value="р-н Арбат">
+                        <option value="р-н Вешняки">
+                        <option value="р-н Ивановское">
+                        <option value="Старая Купавна">
+                        <option value="мкр. Балашиха-1">
+                        <option value="р-н Новогиреево">
+                        <option value="мкр. Северный Реутов">
+                        <option value="мкр. Новое Павлино">
+                        <option value="мкр. Новое Измайлово">
+                        <option value="Ногинск">
+                        <option value="мкр. Южный Реутов">
+                        <option value="Филимоново микрорайон">
+                        <option value="мкр. Лукино">
+                        <option value="Бисерово село">
+                        <option value="мкр. Алексеевская Роща">
+                        <option value="Свердловский рп">
+                        <option value="мкр. Сакраменто">
+                        <option value="мкр. Балашиха-3">
+                        <option value="мкр. 28-й">
+                        <option value="мкр. 22-й">
+                        <option value="мкр. Железнодорожный (Центральный)">
+                        <option value="мкр. Парковский">
+                        <option value="мкр. Поле чудес">
+                        <option value="Обухово рп">
+                        <option value="р-н Новокосино">
+                        <option value="Монино рп">
+                        <option value="Щемилово деревня">
+                        <option value="мкр. Балашиха-2">
+                        <option value="мкр. Новый свет">
+                        <option value="мкр. Кучино">
+                        <option value="р-н Восточный">
+                        <option value="мкр. Подлипки">
+                        <option value="мкр. Люберцы 2015 2018">
+                        <option value="мкр. Железнодорожный (Ольгино)">
+                        <option value="мкр. 15-й">
+                        <option value="Большое Буньково деревня">
+                        <option value="мкр. Железнодорожный (Саввино)">
+                        <option value="мкр. Юго-Западный">
+                        <option value="Зеленый поселок">
+                        <option value="мкр. Крутое">
+                        <option value="Новая Купавна деревня">
+                        <option value="р-н Академический">
+                        <option value="р-н Котловка">
+                        <option value="р-н Замоскворечье">
+                        <option value="р-н Коньково">
+                        <option value="р-н Крылатское">
+                        <option value="Звенигород">
+                        <option value="Глухово деревня">
+                        <option value="Ильинское-Усово поселок">
+                        <option value="Петрово-Дальнее село">
+                        <option value="Ромашково село">
+                        <option value="Бузланово деревня">
+                        <option value="мкр. Пироговский">
+                        <option value="мкр. Центральный">
+                        <option value="мкр. Левобережный">
+                        <option value="р-н Северный">
+                        <option value="р-н Лианозово">
+                        <option value="мкр. Старый город">
+                        <option value="мкр. Гранитный">
+                        <option value="мкр. Старые Химки">
+                        <option value="р-н Пресненский">
+                        <option value="мкр. Виноградовские Горки">
+                        <option value="Марушкинское поселение">
+                        <option value="Филимонковское поселение">
+                        <option value="Первомайское поселение">
+                        <option value="р-н Дорогомилово">
+                        <option value="Большие Жеребцы деревня">
+                        <option value="мкр. Гагарина">
+                        <option value="Марусино деревня">
+                        <option value="мкр. Салтыковка">
+                        <option value="р-н Некрасовка">
+                        <option value="мкр. Железнодорожный (Керамик)">
+                        <option value="мкр. Никольско-Архангельский">
+                        <option value="мкр. Заря">
+                        <option value="р-н Косино-Ухтомский">
+                        <option value="Электроугли">
+                        <option value="Федурново деревня">
+                        <option value="мкр. 15А">
+                        <option value="мкр. Щелково-3">
+                        <option value="мкр. Авиаторов">
+                        <option value="Черное деревня">
+                        <option value="мкр. Янтарный">
+                        <option value="мкр. Красная горка">
+                        <option value="р-н Матушкино">
+                        <option value="р-н Крюково">
+                        <option value="Брехово деревня">
+                        <option value="Андреевка рп">
+                        <option value="мкр. Новые Химки">
+                        <option value="р-н Силино">
+                        <option value="мкр. Подрезково">
+                        <option value="р-н Савёлки">
+                        <option value="р-н Старое Крюково">
+                        <option value="Бакеево деревня">
+                        <option value="мкр. Брусчатый">
+                        <option value="Подолино деревня">
+                        <option value="Рузино деревня">
+                        <option value="Ангелово село">
+                        <option value="Юрлово деревня">
+                        <option value="р-н Теплый Стан">
+                        <option value="Московский поселение">
+                        <option value="р-н Останкинский">
+                        <option value="р-н Алексеевский">
+                        <option value="р-н Марьина роща">
+                        <option value="р-н Ростокино">
+                        <option value="р-н Ярославский">
+                        <option value="р-н Можайский">
+                        <option value="Новоивановское рп">
+                        <option value="Немчиновка село">
+                        <option value="мкр. Новая Трехгорка">
+                        <option value="р-н Богородское">
+                        <option value="р-н Марьино">
+                        <option value="р-н Зябликово">
+                        <option value="р-н Братеево">
+                        <option value="Мисайлово деревня">
+                        <option value="р-н Капотня">
+                        <option value="р-н Орехово-Борисово Южное">
+                        <option value="мкр. Западный">
+                        <option value="Город Счастья жилой комплекс">
+                        <option value="р-н Москворечье-Сабурово">
+                        <option value="Красково дп">
+                        <option value="р-н Выхино-Жулебино">
+                        <option value="Островцы деревня">
+                        <option value="р-н Рязанский">
+                        <option value="Центральный микрорайон">
+                        <option value="Мирный поселок">
+                        <option value="мкр. Северные Люберцы">
+                        <option value="Кратово дп">
+                        <option value="мкр. Ильинка">
+                        <option value="Москворецкий микрорайон">
+                        <option value="мкр. 2А">
+                        <option value="р-н Кузьминки">
+                        <option value="мкр. Панки">
+                        <option value="р-н Центральный">
+                        <option value="Малаховка рп">
+                        <option value="Дубовая Роща поселок">
+                        <option value="мкр. МЖК">
+                        <option value="Ильинский рп">
+                        <option value="Октябрьский рп">
+                        <option value="мкр. Рынок">
+                        <option value="мкр. К-2">
+                        <option value="Лопатинский микрорайон">
+                        <option value="3-й микрорайон">
+                        <option value="мкр. 2-й">
+                        <option value="Фосфоритный рп">
+                        <option value="мкр. Мясищева">
+                        <option value="Быково рп">
+                        <option value="мкр. 6-й">
+                        <option value="Дружба поселок">
+                        <option value="Внуковское поселение">
+                        <option value="р-н Солнцево">
+                        <option value="р-н Ново-Переделкино">
+                        <option value="Московский">
+                        <option value="мкр. Одинцовский парк">
+                        <option value="Апрелевка">
+                        <option value="Первомайское поселок">
+                        <option value="ВНИИССОК поселок">
+                        <option value="р-н Раменки">
+                        <option value="р-н Очаково-Матвеевское">
+                        <option value="р-н Бибирево">
+                        <option value="Пирогово деревня">
+                        <option value="р-н Северное Медведково">
+                        <option value="р-н Отрадное">
+                        <option value="Яхрома">
+                        <option value="мкр. Новые Водники">
+                        <option value="Аксаково деревня">
+                        <option value="Вешки поселок">
+                        <option value="р-н Алтуфьевский">
+                        <option value="р-н Восточное Дегунино">
+                        <option value="р-н Дмитровский">
+                        <option value="Нагорное поселок">
+                        <option value="Деденево рп">
+                        <option value="Новое Гришино поселок">
+                        <option value="р-н Южное Медведково">
+                        <option value="Икша рп">
+                        <option value="Болтино деревня">
+                        <option value="Некрасовский рп">
+                        <option value="Шолохово жилой комплекс">
+                        <option value="мкр. Новое Пушкино">
+                        <option value="Запрудня рп">
+                        <option value="Бородино деревня">
+                        <option value="Грибки деревня">
+                        <option value="Совхоза Марфино поселок">
+                        <option value="Опытного хозяйства Ермолино поселок">
+                        <option value="Дома отдыха Горки поселок">
+                        <option value="Заречье рп">
+                        <option value="р-н Текстильщики">
+                        <option value="мкр. Городок Б">
+                        <option value="Верхнее Мячково село">
+                        <option value="р-н Люблино">
+                        <option value="мкр. 8-й">
+                        <option value="мкр. 7-й">
+                        <option value="Осоргино деревня">
+                        <option value="Кокошкино дп">
+                        <option value="мкр. 1-й">
+                        <option value="р-н Внуково">
+                        <option value="Лесной Городок дп">
+                        <option value="Новофедоровское поселение">
+                        <option value="Десеновское поселение">
+                        <option value="Малые Вяземы деревня">
+                        <option value="Митькино деревня">
+                        <option value="Солманово деревня">
+                        <option value="Вороновское поселение">
+                        <option value="Лайково село">
+                        <option value="р-н Басманный">
+                        <option value="р-н Фили-Давыдково">
+                        <option value="р-н Аэропорт">
+                        <option value="мкр. Одинцово-1">
+                        <option value="Большие Вяземы рп">
+                        <option value="Тучково рп">
+                        <option value="мкр. Кутузовский">
+                        <option value="Новотеряево поселок">
+                        <option value="Дорохово поселок">
+                        <option value="р-н Ховрино">
+                        <option value="р-н Левобережный">
+                        <option value="р-н Западное Дегунино">
+                        <option value="р-н Куркино">
+                        <option value="Елино деревня">
+                        <option value="р-н Бескудниковский">
+                        <option value="мкр. Клязьма-Старбеево">
+                        <option value="р-н Войковский">
+                        <option value="Поварово дп">
+                        <option value="Озерецкое село">
+                        <option value="Менделеево рп">
+                        <option value="Жуково поселок">
+                        <option value="мкр. Чернево-2">
+                        <option value="мкр. Теплый бетон">
+                        <option value="мкр. Чернево">
+                        <option value="мкр. Губайлово">
+                        <option value="р-н Хорошево-Мневники">
+                        <option value="мкр. Ивановское">
+                        <option value="р-н Ясенево">
+                        <option value="р-н Чертаново Центральное">
+                        <option value="р-н Царицыно">
+                        <option value="р-н Сокольники">
+                        <option value="Лобаново деревня">
+                        <option value="Исаково деревня">
+                        <option value="Павловская Слобода село">
+                        <option value="Николо-Урюпино село">
+                        <option value="р-н Хорошевский">
+                        <option value="р-н Беговой">
+                        <option value="р-н Чертаново Южное">
+                        <option value="Суханово деревня">
+                        <option value="Лопатино рп">
+                        <option value="Щербинка">
+                        <option value="мкр. Ново-Сырово">
+                        <option value="мкр. Центрального">
+                        <option value="Сапроново деревня">
+                        <option value="Домодедово село">
+                        <option value="Бутово рп">
+                        <option value="Дубровский поселок">
+                        <option value="Дрожжино рп">
+                        <option value="р-н Бирюлево Западное">
+                        <option value="мкр. Шепчинки">
+                        <option value="р-н Южное Бутово">
+                        <option value="р-н Бирюлево Восточное">
+                        <option value="мкр. Юбилейный">
+                        <option value="Боброво рп">
+                        <option value="мкр. Климовск">
+                        <option value="Жабкино деревня">
+                        <option value="мкр. Кутузово">
+                        <option value="Новый Быт село">
+                        <option value="Битца поселок">
+                        <option value="мкр. Кузнечики">
+                        <option value="Губернский микрорайон">
+                        <option value="Быково поселок">
+                        <option value="Федюково деревня">
+                        <option value="мкр. Зеленовский">
+                        <option value="р-н Северное Бутово">
+                        <option value="Рязановское поселение">
+                        <option value="мкр. 5-й">
+                        <option value="мкр. 3-й">
+                        <option value="Кобяково поселок">
+                        <option value="Успенское село">
+                        <option value="мкр. 4-й">
+                        <option value="Клубничное Поле микрорайон">
+                        <option value="р-н Печатники">
+                        <option value="Ивантеевка">
+                        <option value="мкр. Новые Подлипки">
+                        <option value="р-н Свиблово">
+                        <option value="р-н Бабушкинский">
+                        <option value="мкр. Восточная Перловка">
+                        <option value="мкр. Текстильщик">
+                        <option value="мкр. Леонидовка">
+                        <option value="мкр. Завокзальный">
+                        <option value="мкр. Заречный">
+                        <option value="Лесной рп">
+                        <option value="мкр. Заветы Ильича">
+                        <option value="Лесные Поляны поселок">
+                        <option value="мкр. Углич">
+                        <option value="мкр. Валентиновка">
+                        <option value="мкр. Ярославский">
+                        <option value="мкр. Солнечный">
+                        <option value="мкр. Шараповка">
+                        <option value="Оболдино деревня">
+                        <option value="мкр. Перловка">
+                        <option value="Зеленоградский дп">
+                        <option value="р-н Лосиноостровский">
+                        <option value="мкр. 10">
+                        <option value="мкр. 15">
+                        <option value="мкр. Кудринка">
+                        <option value="мкр. 14">
+                        <option value="мкр. Дружба">
+                        <option value="мкр. 11, 12">
+                        <option value="мкр. Болшево">
+                        <option value="мкр. Щелково-7">
+                        <option value="Челюскинский поселок">
+                        <option value="мкр. Строителей">
+                        <option value="мкр. Костино">
+                        <option value="мкр. Северный">
+                        <option value="Правдинский рп">
+                        <option value="Хотьково">
+                        <option value="р-н Сокол">
+                        <option value="мкр. поселок Калинина">
+                        <option value="мкр. Ухтомка">
+                        <option value="мкр. квартал 115">
+                        <option value="Жилино-1 поселок">
+                        <option value="мкр. Мальчики">
+                        <option value="мкр. Октябрьские проезды">
+                        <option value="мкр. Городок А">
+                        <option value="Сухарево деревня">
+                        <option value="Коммунарка поселок">
+                        <option value="Сосенское поселение">
+                        <option value="Воскресенское поселение">
+                        <option value="мкр. О'Пушкин">
+                        <option value="мкр. 25">
+                        <option value="мкр. Олимпийский">
+                        <option value="мкр. 24">
+                        <option value="мкр. Первомайский">
+                        <option value="мкр. 17">
+                        <option value="Первомайский микрорайон">
+                        <option value="мкр. 13">
+                        <option value="Мебельной Фабрики поселок">
+                        <option value="мкр. Северного">
+                        <option value="Завода Мосрентген поселок">
+                        <option value="Мосрентген поселение">
+                        <option value="р-н Филевский парк">
+                        <option value="мкр. Водники">
+                        <option value="р-н Щукино">
+                        <option value="мкр. Авиационный">
+                        <option value="р-н Орехово-Борисово Северное">
+                        <option value="мкр. Новое Домодедово">
+                        <option value="Развилка поселок">
+                        <option value="Мещерино поселок">
+                        <option value="Горки деревня">
+                        <option value="Молоково село">
+                        <option value="Горки Ленинские рп">
+                        <option value="Гальчино деревня">
+                        <option value="Верзилово село">
+                        <option value="Володарского поселок">
+                        <option value="Растуново село">
+                        <option value="Троицк">
+                        <option value="Кленовское поселение">
+                        <option value="Краснопахорское поселение">
+                        <option value="Рогово поселок">
+                        <option value="Михайлово-Ярцевское поселение">
+                        <option value="Селятино рп">
+                        <option value="Калининец рп">
+                        <option value="совхоза Останкино поселок">
+                        <option value="р-н Гольяново">
+                        <option value="р-н Преображенское">
+                        <option value="р-н Метрогородок">
+                        <option value="р-н Северное Измайлово">
+                        <option value="р-н Измайлово">
+                        <option value="р-н Чертаново Северное">
+                        <option value="р-н Зюзино">
+                        <option value="р-н Нагорный">
+                        <option value="4-й микрорайон">
+                        <option value="мкр. Силикатная">
+                        <option value="Борисовка деревня">
+                        <option value="р-н Нагатино-Садовники">
+                        <option value="Голицыно">
+                        <option value="Семеновское село">
+                        <option value="Колычево поселок">
+                        <option value="мкр. Парковый">
+                        <option value="мкр. Гудкова">
+                        <option value="мкр. Быковка">
+                        <option value="мкр. Губайлово-2">
+                        <option value="Сосновый Бор поселок">
+                        <option value="мкр. Хлебниково">
+                        <option value="р-н Восточное Измайлово">
+                        <option value="Радумля деревня">
+                        <option value="мкр. Фирсановка">
+                        <option value="мкр. Планерная">
+                        <option value="Лунево поселок">
+                        <option value="мкр. 7">
+                        <option value="мкр. 6">
+                        <option value="мкр. 18">
+                        <option value="Императорские Мытищи жилой комплекс">
+                        <option value="мкр. 5">
+                        <option value="мкр. 2, 3">
+                        <option value="мкр. 28">
+                        <option value="мкр. Высотный">
+                        <option value="Загорянский дп">
+                        <option value="Гаврилково деревня">
+                        <option value="Воронино деревня">
+                        <option value="Щаповское поселение">
+                        <option value="Перхушково село">
+                        <option value="мкр. Сиреневый">
+                        <option value="Варежки квартал">
+                        <option value="мкр. Рабочий">
+                        <option value="Высоковск">
+                        <option value="Красноармейск">
+                        <option value="Краснознаменский поселок">
+                        <option value="Софрино рп">
+                        <option value="мкр. Звездочка">
+                        <option value="мкр. имени Инессы Арманд">
+                        <option value="мкр. Щелково-12">
+                        <option value="мкр. Клементьевский">
+                        <option value="мкр. Мичурина">
+                        <option value="Краснозаводск">
+                        <option value="мкр. Ферма">
+                        <option value="мкр. Зеленый Городок">
+                        <option value="мкр. Новая Деревня">
+                        <option value="мкр. Дальний Воронок">
+                        <option value="33-й микрорайон">
+                        <option value="мкр. Межшоссейный">
+                        <option value="мкр. Ближний Воронок">
+                        <option value="Медвежьи Озера деревня">
+                        <option value="Ногинск-9 поселок">
+                        <option value="Юрово деревня">
+                        <option value="мкр. Горельники">
+                        <option value="Удельная дп">
+                        <option value="Софьино село">
+                        <option value="2-й микрорайон">
+                        <option value="5-й микрорайон">
+                        <option value="мкр. Запруды">
+                        <option value="Пустоши поселок">
+                        <option value="Ерново деревня">
+                        <option value="Высоково деревня">
+                        <option value="Рыбхоз поселок">                                          
+                    </datalist>
+                </div>
+                <input class="btn btn-success" type="button" name="continue_district" id="continue_district" value="Далее">
+            </div>
+
+            <br><br>
+
+            <div class="content_div" id="underground_main_div">
+                <img class="nav_img" id="underground_img" src="{{ url_for('static', path='/images/nav_imgs/underground.png') }}" alt="underground">
+                <for_label_and_inputbr>
+                <img class="nav_img" id="und_img" src="{{ url_for('static', path='/images/underground/underground.png') }}" alt="about">
+                <br>
+                <div class="und_div">
+                    <div class="for_label_and_input">
+                        <label class="label_class" for="underground_l">Метро</label>
+                        <input class="form-control" type="text" id="und_id" name="underground_l" list="underground_list" placeholder="Раменки">
+                        <datalist id="underground_list">
+                                <option value="Авиамоторная">
+                                <option value="Андроновка">
+                                <option value="Лефортово">
+                                <option value="Выхино">
+                                <option value="Калитники">
+                                <option value="Площадь Ильича">
+                                <option value="Шоссе Энтузиастов">
+                                <option value="Нижегородская">
+                                <option value="Римская">
+                                <option value="Комсомольская">
+                                <option value="Москва-Товарная">
+                                <option value="Соколиная гора">
+                                <option value="Косино">
+                                <option value="Аникеевка">
+                                <option value="Митино">
+                                <option value="Волоколамская">
+                                <option value="Мякинино">
+                                <option value="Пятницкое шоссе">
+                                <option value="Пенягино">
+                                <option value="Трикотажная">
+                                <option value="Строгино">
+                                <option value="Красногорская">
+                                <option value="Павшино">
+                                <option value="Тушинская">
+                                <option value="Планерная">
+                                <option value="Сходненская">
+                                <option value="Нахабино">
+                                <option value="Пролетарская">
+                                <option value="Автозаводская">
+                                <option value="Марксистская">
+                                <option value="Крестьянская застава">
+                                <option value="Дубровка">
+                                <option value="Таганская">
+                                <option value="Волгоградский проспект">
+                                <option value="Новаторская">
+                                <option value="Проспект Вернадского">
+                                <option value="Новые Черемушки">
+                                <option value="Юго-Западная">
+                                <option value="Калужская">
+                                <option value="Университет">
+                                <option value="Воронцовская">
+                                <option value="Рижская">
+                                <option value="Сухаревская">
+                                <option value="Проспект Мира">
+                                <option value="Дмитровская">
+                                <option value="Достоевская">
+                                <option value="Цветной бульвар">
+                                <option value="Коптево">
+                                <option value="Тимирязевская">
+                                <option value="Фонвизинская">
+                                <option value="Петровско-Разумовская">
+                                <option value="Улица Милашенкова">
+                                <option value="ЗИЛ">
+                                <option value="Кожуховская">
+                                <option value="Тульская">
+                                <option value="Технопарк">
+                                <option value="Коломенская">
+                                <option value="Павелецкая">
+                                <option value="Площадь Гагарина">
+                                <option value="Воробьевы горы">
+                                <option value="Ленинский проспект">
+                                <option value="Спортивная">
+                                <option value="Лужники">
+                                <option value="Смоленская">
+                                <option value="Третьяковская">
+                                <option value="Арбатская">
+                                <option value="Полянка">
+                                <option value="Парк Культуры">
+                                <option value="Кропоткинская">
+                                <option value="Новогиреево">
+                                <option value="Новокосино">
+                                <option value="Некрасовка">
+                                <option value="Щелковская">
+                                <option value="Первомайская">
+                                <option value="Перово">
+                                <option value="Партизанская">
+                                <option value="Курская">
+                                <option value="Измайловская">
+                                <option value="Медведково">
+                                <option value="Профсоюзная">
+                                <option value="Академическая">
+                                <option value="Нахимовский проспект">
+                                <option value="Нагорная">
+                                <option value="Зюзино">
+                                <option value="Новокузнецкая">
+                                <option value="Крымская">
+                                <option value="Беляево">
+                                <option value="Молодежная">
+                                <option value="Крылатское">
+                                <option value="Кунцевская">
+                                <option value="Опалиха">
+                                <option value="Долгопрудная">
+                                <option value="Ховрино">
+                                <option value="Марк">
+                                <option value="Селигерская">
+                                <option value="Лианозово">
+                                <option value="Новодачная">
+                                <option value="Водники">
+                                <option value="Беломорская">
+                                <option value="Маяковская">
+                                <option value="Охотный ряд">
+                                <option value="Трубная">
+                                <option value="Пушкинская">
+                                <option value="Чеховская">
+                                <option value="Тверская">
+                                <option value="Спартак">
+                                <option value="Филатов Луг">
+                                <option value="Александровский сад">
+                                <option value="Выставочная">
+                                <option value="Шелепиха">
+                                <option value="Деловой центр">
+                                <option value="Тестовская">
+                                <option value="Киевская">
+                                <option value="Улица 1905 года">
+                                <option value="Международная">
+                                <option value="Студенческая">
+                                <option value="Верхние котлы">
+                                <option value="Нагатинская">
+                                <option value="Шаболовская">
+                                <option value="Лухмановская">
+                                <option value="Улица Дмитриевского">
+                                <option value="Речной вокзал">
+                                <option value="Лобня">
+                                <option value="Тропарево">
+                                <option value="Озерная">
+                                <option value="Говорово">
+                                <option value="Теплый Стан">
+                                <option value="Румянцево">
+                                <option value="Бутырская">
+                                <option value="Алексеевская">
+                                <option value="ВДНХ">
+                                <option value="Марьина роща">
+                                <option value="Улица Академика Королева">
+                                <option value="Ботанический сад">
+                                <option value="Выставочный центр">
+                                <option value="Ростокино">
+                                <option value="Улица Сергея Эйзенштейна">
+                                <option value="Сетунь">
+                                <option value="Рабочий поселок">
+                                <option value="Давыдково">
+                                <option value="Немчиновка">
+                                <option value="Сколково">
+                                <option value="Славянский бульвар">
+                                <option value="Бульвар Рокоссовского">
+                                <option value="Марьино">
+                                <option value="Шипиловская">
+                                <option value="Борисово">
+                                <option value="Алма-Атинская">
+                                <option value="Братиславская">
+                                <option value="Домодедовская">
+                                <option value="Рязанский проспект">
+                                <option value="Котельники">
+                                <option value="Юго-Восточная">
+                                <option value="Лермонтовский проспект">
+                                <option value="Окская">
+                                <option value="Кузьминки">
+                                <option value="Лубянка">
+                                <option value="Рассказовка">
+                                <option value="Солнцево">
+                                <option value="Новопеределкино">
+                                <option value="Боровское шоссе">
+                                <option value="Саларьево">
+                                <option value="Одинцово">
+                                <option value="Мичуринский проспект">
+                                <option value="Аминьевская">
+                                <option value="Раменки">
+                                <option value="Минская">
+                                <option value="Ломоносовский проспект">
+                                <option value="Серпуховская">
+                                <option value="Алтуфьево">
+                                <option value="Бабушкинская">
+                                <option value="Бибирево">
+                                <option value="Окружная">
+                                <option value="Отрадное">
+                                <option value="Бескудниково">
+                                <option value="Текстильщики">
+                                <option value="Волжская">
+                                <option value="Люблино">
+                                <option value="Стахановская">
+                                <option value="Менделеевская">
+                                <option value="Белорусская">
+                                <option value="Новослободская">
+                                <option value="Коммунарка">
+                                <option value="Ольховая">
+                                <option value="Сретенский бульвар">
+                                <option value="Тургеневская">
+                                <option value="Чистые пруды">
+                                <option value="Аэропорт">
+                                <option value="Динамо">
+                                <option value="Гражданская">
+                                <option value="Петровский Парк">
+                                <option value="Пионерская">
+                                <option value="Новохохловская">
+                                <option value="Водный стадион">
+                                <option value="Лихоборы">
+                                <option value="Красные ворота">
+                                <option value="Бауманская">
+                                <option value="Царицыно">
+                                <option value="Чкаловская">
+                                <option value="Китай-город">
+                                <option value="Ясенево">
+                                <option value="Новоясеневская">
+                                <option value="Битцевский парк">
+                                <option value="Пражская">
+                                <option value="Красносельская">
+                                <option value="Угрешская">
+                                <option value="Верхние Лихоборы">
+                                <option value="Дегунино">
+                                <option value="Владыкино">
+                                <option value="Курьяново">
+                                <option value="Перерва">
+                                <option value="Москворечье">
+                                <option value="Краснопресненская">
+                                <option value="Беговая">
+                                <option value="Хорошево">
+                                <option value="Лесопарковая">
+                                <option value="Аннино">
+                                <option value="Улица Академика Янгеля">
+                                <option value="Бульвар Дмитрия Донского">
+                                <option value="Щербинка">
+                                <option value="Силикатная">
+                                <option value="Бутово">
+                                <option value="Подольск">
+                                <option value="Красный Строитель">
+                                <option value="Битца">
+                                <option value="Кантемировская">
+                                <option value="Улица Скобелевская">
+                                <option value="Кутузовская">
+                                <option value="Парк Победы">
+                                <option value="Баковка">
+                                <option value="Печатники">
+                                <option value="Депо">
+                                <option value="Свиблово">
+                                <option value="Покровское">
+                                <option value="Южная">
+                                <option value="ЦСКА">
+                                <option value="Сокол">
+                                <option value="Красный Балтиец">
+                                <option value="Савеловская">
+                                <option value="Жулебино">
+                                <option value="Бунинская аллея">
+                                <option value="Улица Горчакова">
+                                <option value="Бульвар Адмирала Ушакова">
+                                <option value="Остафьево">
+                                <option value="Улица Старокачаловская">
+                                <option value="Фили">
+                                <option value="Багратионовская">
+                                <option value="Филевский парк">
+                                <option value="улица Народного ополчения">
+                                <option value="Мневники">
+                                <option value="Добрынинская">
+                                <option value="Октябрьская">
+                                <option value="Электрозаводская">
+                                <option value="Телецентр">
+                                <option value="Хлебниково">
+                                <option value="Октябрьское поле">
+                                <option value="Народное ополчение">
+                                <option value="Панфиловская">
+                                <option value="Щукинская">
+                                <option value="Зорге">
+                                <option value="Полежаевская">
+                                <option value="Терехово">
+                                <option value="Войковская">
+                                <option value="Балтийская">
+                                <option value="Стрешнево">
+                                <option value="Зябликово">
+                                <option value="Орехово">
+                                <option value="Красногвардейская">
+                                <option value="Каширская">
+                                <option value="Прокшино">
+                                <option value="Баррикадная">
+                                <option value="Шереметьевская">
+                                <option value="Семеновская">
+                                <option value="Черкизовская">
+                                <option value="Локомотив">
+                                <option value="Преображенская площадь">
+                                <option value="Чертановская">
+                                <option value="Севастопольская">
+                                <option value="Каховская">
+                                <option value="Хорошевская">
+                                <option value="Белокаменная">
+                                <option value="Измайлово">
+                                <option value="Фрунзенская">
+                                <option value="Коньково">
+                                <option value="Нагатинский Затон">
+                                <option value="Площадь трёх вокзалов">
+                                <option value="Сокольники">
+                                <option value="Варшавская">                                                                                      
+                        </datalist>
+                    </div>
+
+                    <div class="for_label_and_input">
+                        <label class="label_class" for="underground_time">Время</label>
+                        <input class="form-control" type="number" id="float_num" name="underground_time" placeholder="15">
+                    </div>
+                </div>
+                <table class="checkbox_table">
+                    <tr>
+                        <td>
+                            <div class="checkbox_div">
+                                <input class="checkbox_class" name="underground_c_by_foot" type="checkbox" id="underground_c_by_foot" />
+                                <label for="underground_c_by_foot">
+                                    <img class="checkbox_img" id="underground_img_by_foot" src="{{ url_for('static', path='/images/underground/by_foot.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input class="checkbox_class" type="checkbox" name="underground_c_by_transport" id="underground_c_by_transport" />
+                                <label for="underground_c_by_transport">
+                                    <img class="checkbox_img" id="underground_img_by_transport" src="{{ url_for('static', path='/images/underground/by_transport.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                    </tr>                        
+                </table>
+                <br>
+                <input class="btn btn-success" type="button" name="continue_underground" id="continue_underground" value="Далее">
+            </div>
+
+            <br><br>
+
+            <div class="content_div" id="flat_main_div">
+                <img class="nav_img" id="flat_sizes_img" src="{{ url_for('static', path='/images/nav_imgs/flat_sizes.png') }}" alt="flat_sizes">
+                <br>
+                <img class="add_img" src="{{ url_for('static', path='/images/imgs/sqrm.png') }}" alt="about">
+                <br><br>
+                <div class="flat_div">
+                    <div class="for_label_and_input">
+                        <label for="flat_size" class="label_class">Квартира</label>
+                        <input class="form-control"  type="number" id="float_num" step="0.01" name="flat_size" placeholder="27.7">
+                    </div>
+                    <div class="for_label_and_input">
+                        <label for="kitchen_size" class="label_class">Кухня</label>
+                        <input class="form-control" type="number" id="float_num" step="0.01" name="kitchen_size" placeholder="6.8">
+                    </div>
+                </div>
+                <br><br>
+                <input class="btn btn-success" type="button" name="continue_flat_sizes" id="continue_flat_sizes" value="Далее">
+            </div>
+
+            <br><br>
+            <div class="content_div" id="renovation_main_div">
+                <img class="nav_img" id="renovation_img" src="{{ url_for('static', path='/images/nav_imgs/renovation.png') }}" alt="renovation">
+                <table class="checkbox_table">
+                    <tr>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="renovation_c_renovation" class="checkbox_class" type="checkbox" id="renovation_c_renovation" />
+                                <label for="renovation_c_renovation">
+                                    <img class="checkbox_img" id="renovation_img_renovation" src="{{ url_for('static', path='/images/renovation/renovation.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="renovation_c_cosmetic" class="checkbox_class" type="checkbox" id="renovation_c_cosmetic" />
+                                <label for="renovation_c_cosmetic">
+                                    <img class="checkbox_img" id="renovation_img_cosmetic" src="{{ url_for('static', path='/images/renovation/cosmetic_renovation.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="renovation_c_designer" class="checkbox_class" type="checkbox" id="renovation_c_designer" />
+                                <label for="renovation_c_designer">
+                                    <img class="checkbox_img" id="renovation_img_designer" src="{{ url_for('static', path='/images/renovation/designer_renovation.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="renovation_c_no" class="checkbox_class" type="checkbox" id="renovation_c_no" />
+                                <label for="renovation_c_no">
+                                    <img class="checkbox_img" id="renovation_img_no" src="{{ url_for('static', path='/images/renovation/no_renovation.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br><br>
+                <input class="btn btn-success" type="button" name="continue_renovation" id="continue_renovation" value="Далее">
+            </div>
+
+            <br><br>
+            
+            <div class="content_div" id="building_main_div">
+                <img class="nav_img" id="about_building_img" src="{{ url_for('static', path='/images/nav_imgs/about_building.png') }}" alt="about_building">
+                <br>
+                <img class="add_img" id="" src="{{ url_for('static', path='/images/imgs/constr.png') }}" alt="">
+                <br>
+                <div class="build_div">      
+
+                    <label for="floors_house" class="label_class">Количество этажей</label>
+                    <input class="form-control" id="float_num" type="number" name="floors_house" placeholder="16">                    
+                    
+                    <label for="floor_flat" class="label_class">Этаж</label>
+                    <input class="form-control" id="float_num" type="number" name="floor_flat" placeholder="7">                    
+
+                    <label for="constructed" class="label_class">Дата постройки</label>
+                    <input class="form-control" id="float_num" type="number" name="constructed" placeholder="1997">
+                    
+                </div>
+                <br>
+                <input class="btn btn-success" type="button" name="continue_constructed" id="continue_constructed" value="Далее">
+            </div>  
+
+            <br><br>
+
+            <div class="content_div" id="typeBuild_main_div">
+                <img class="nav_img" id="type_of_building_img" src="{{ url_for('static', path='/images/nav_imgs/type_of_building.png') }}" alt="type_of_building">
+                <table class="checkbox_table">
+                    <tr>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_block_construction" class="checkbox_class" type="checkbox" id="building_c_block_construction" />
+                                <label for="building_c_block_construction">
+                                    <img class="checkbox_img" id="building_img_block_construction" src="{{ url_for('static', path='/images/type_of_building/block_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_brick_construction" class="checkbox_class" type="checkbox" id="building_c_brick_construction" />
+                                <label for="building_c_brick_construction">
+                                    <img class="checkbox_img" id="building_img_brick_construction" src="{{ url_for('static', path='/images/type_of_building/brick_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_foam_concrete_construction" class="checkbox_class" type="checkbox" id="building_c_foam_concrete_construction" />
+                                <label for="building_c_foam_concrete_construction">
+                                    <img class="checkbox_img" id="building_img_foam_concrete_construction" src="{{ url_for('static', path='/images/type_of_building/foam_concrete_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_monolith_brick_construction" class="checkbox_class" type="checkbox" id="building_c_monolith_brick_construction" />
+                                <label for="building_c_monolith_brick_construction">
+                                    <img class="checkbox_img" id="building_img_monolith_brick_construction" src="{{ url_for('static', path='/images/type_of_building/monolith_brick_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_monolith_construction" class="checkbox_class" type="checkbox" id="building_c_monolith_construction" />
+                                <label for="building_c_monolith_construction">
+                                    <img class="checkbox_img" id="building_img_monolith_construction" src="{{ url_for('static', path='/images/type_of_building/monolith_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table class="checkbox_table">
+                    <tr>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_panel_construction" class="checkbox_class" type="checkbox" id="building_c_panel_construction" />
+                                <label for="building_c_panel_construction">
+                                    <img class="checkbox_img" id="building_img_panel_construction" src="{{ url_for('static', path='/images/type_of_building/panel_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_stalins_construction" class="checkbox_class" type="checkbox" id="building_c_stalins_construction" />
+                                <label for="building_c_stalins_construction">
+                                    <img class="checkbox_img" id="building_img_stalins_construction" src="{{ url_for('static', path='/images/type_of_building/stalins_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_wooden_construction" class="checkbox_class" type="checkbox" id="building_c_wooden_construction" />
+                                <label for="building_c_wooden_construction">
+                                    <img class="checkbox_img" id="building_img_wooden_construction" src="{{ url_for('static', path='/images/type_of_building/wooden_construction.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="building_c_idk" class="checkbox_class" type="checkbox" id="building_c_idk" />
+                                <label for="building_c_idk">
+                                    <img class="checkbox_img" id="building_img_idk" src="{{ url_for('static', path='/images/type_of_building/idk.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br><br>
+                <input class="btn btn-success" type="button" name="continue_type_of_building" id="continue_type_of_building" value="Далее">
+            </div>
+
+            <br><br>
+
+            <div class="content_div" id="walls_main_div">
+                <img class="nav_img" id="type_of_walls_img" src="{{ url_for('static', path='/images/nav_imgs/type_of_walls.png') }}" alt="type_of_walls">
+                <table class="checkbox_table">
+                    <tr>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="walls_c_mixed_walls" class="checkbox_class" type="checkbox" id="walls_c_mixed_walls" />
+                                <label for="walls_c_mixed_walls">
+                                    <img class="checkbox_img" id="walls_img_mixed_walls" src="{{ url_for('static', path='/images/type_of_walls/mixed_walls.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="walls_c_reinforced_concrete_walls" class="checkbox_class" type="checkbox" id="walls_c_reinforced_concrete_walls" />
+                                <label for="walls_c_reinforced_concrete_walls">
+                                    <img class="checkbox_img" id="walls_img_reinforced_concrete_walls" src="{{ url_for('static', path='/images/type_of_walls/reinforced_concrete_walls.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="walls_c_wooden_walls" class="checkbox_class" type="checkbox" id="walls_c_wooden_walls" />
+                                <label for="walls_c_wooden_walls">
+                                    <img class="checkbox_img" id="walls_img_wooden_walls" src="{{ url_for('static', path='/images/type_of_walls/wooden_walls.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="checkbox_div">
+                                <input name="walls_c_idk" class="checkbox_class" type="checkbox" id="walls_c_idk" />
+                                <label for="walls_c_idk">
+                                    <img class="checkbox_img" id="walls_img_idk" src="{{ url_for('static', path='/images/type_of_walls/idk.png') }}" />
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <br><br>
+                <input class="btn btn-success" type="submit" name="finish" id="finish" value="Узнать">
+                <br>
+            
+            </div>
+        </form>
+
+    </div>
+
+    <script src="{{ url_for('static', path='/flats/mainscript.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

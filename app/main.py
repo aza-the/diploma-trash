@@ -11,6 +11,7 @@ import crud
 import models
 import schemas
 from database import SessionLocal, engine
+from utils import run_preditcion_on_model
 
 
 # Dependency
@@ -52,6 +53,10 @@ def main():
     async def get_file(file: str):
         return FileResponse(f'app/static/files/{unquote(file)}')
 
+    @app.post('/item/')
+    def create_item(items: schemas.Item, db: Session = Depends(get_db)):
+        ...
+
     @app.post('/items/')
     def create_items(items: list[schemas.Item], db: Session = Depends(get_db)):
         for item in items:
@@ -66,6 +71,38 @@ def main():
         items = crud.get_items_by_category_and_subcategory(
             db, unquote(category), unquote(subcategory))
         return items
+
+    # INFO: FLATS PAGES
+    # ATTENTION!!!
+    @app.get('/flats/', response_class=HTMLResponse)
+    def get_flats_page(request: Request):
+        return templates.TemplateResponse(
+            "flats_up/flats.html", context={"request": request}
+        )
+
+    @app.post('/flats/')
+    def post_flats_page(
+        _: Request,
+        form_data: schemas.FlatForm
+    ):
+        prediction = run_preditcion_on_model(
+            district=form_data.district,
+            metro_name=form_data.underground_station,
+            metro_time=int(form_data.underground_time),
+            metro_get_type=form_data.underground_get_type,
+            size=float(form_data.flat_size),
+            kitchen=float(form_data.kitchen_size),
+            floor=int(form_data.storey),
+            floors=int(form_data.storeys),
+            constructed=int(form_data.construction_date),
+            fix=form_data.renovation,
+            type_of_building=form_data.construction_type,
+            type_of_walls=form_data.wall,
+        )
+
+        prediction = str(prediction)
+
+        return {"Итог": prediction}
 
     return app
 

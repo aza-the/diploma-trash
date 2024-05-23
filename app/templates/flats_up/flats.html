@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Квартиры</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&apikey=dcdcb9b3-135f-41f2-87ec-d5d8968c6a58&suggest_apikey=c4c6e89b-d466-46af-85a0-c443617e369e" type="text/javascript"></script>
+    <script type="module" src="{{ url_for('static', path='flats_up/ymap.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', path='flats_up/ysearch.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', path='flats_up/provider.js') }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById("form_flat").addEventListener("submit", function(e) {
+                e.preventDefault() // Cancel the default action
+                submitForm();
+            });
+        });
+     </script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"></head>    
+    <link rel="stylesheet" href="{{ url_for('static', path='flats_up/flats.css') }}">
+<body>
+    <div class="all">
+
+        <div id="mySidenav" class="sidenav">
+            <a id="about" href="javascript:void(0);">Руководство</a>
+            <a id="place" href="javascript:void(0);">Местоположение</a>
+            <a id="underground" href="javascript:void(0);">Метро</a>
+            <a id="about_flat" href="javascript:void(0);">О квартире</a>
+            <a id="about_building" href="javascript:void(0);">О здании</a>
+            <a id="walls" href="javascript:void(0);">Перекрытия</a>
+        </div>
+
+        <div class="ticker">
+            <div className="scroll">
+                <div class="ticker_item" id="ticker_1">
+                    Квартиры Москва Квартиры<span> Москва </span>
+                    Квартиры Квартиры <span>Квартиры </span>
+                </div>
+                <div class="ticker_item" id="ticker_2">
+                    <span>Квартиры </span> Москва Москва <span>Квартиры </span>
+                    Квартиры Квартиры <span> Квартиры </span>
+                </div>
+            </div>
+        </div>
+    
+        <div id="main">
+
+            <div class="mapsclass" id="mapsdiv">
+                <div class="info" id="infodiv"></div>
+                <div class="info" id="infodiv1"></div>
+                <div id="responseArea1"><p id="responseArea"></p></div>
+            </div>
+
+            <form id="form_flat" method="post" onkeydown="return event.key != 'Enter';">
+
+                <div class="formclass">
+                    
+                    <div class="formelements">
+
+                        <div class="formelement" id="formelement_about">
+                            <h1>Руководство</h1>
+                            <p class="manual">
+                                Для расчёта рыночной стоимости <br> недвижимости необходимо заполнить <br> все поля характеристик недвижимости.
+                            </p>
+                            
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_about_next"  value="Начать">
+                            </div>
+                        </div>
+                        
+                        <div class="formelement" id="formelement_place">
+                            <h1>Местоположение</h1>
+                            <p class="address">Введите адрес дома, где находится ваша недвижимость</p>
+                            <input class="form-control" name="district" type="text" id="suggest" placeholder="Введите адрес">
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_place_back"  value="Назад">
+                                <input class="btn btn-primary" type="button" id="formelement_place_next"  value="Далее">
+                            </div>
+                        </div>
+
+                        <div class="formelement" id="formelement_underground">
+                            <h1>Метро</h1>
+                            <input class="form-control" type="text" name="underground_station" id="underground_station" placeholder="Станция метро">
+                            <input class="form-control" type="number" name="underground_time" id="underground_time" placeholder="Время в минутах" title="Введите время от 0 до 999" min="1" max="100" step="1">
+                            <p class="get_type">Как добраться</p>
+                            <table class="radiobtns">
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="underground_get_type" value="пешком" id="by_foot_radio">
+                                        <label class="form-check-label" for="by_foot_radio">
+                                        <img id="by_foot_img" src="{{ url_for('static', path='/images/underground/by_foot_white.png') }}" alt="Пешком">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="underground_get_type" value="транспорт" id="by_transport_radio">
+                                        <label class="form-check-label" for="by_transport_radio">
+                                        <img id="by_transport_img" src="{{ url_for('static', path='/images/underground/by_transport_white.png') }}" alt="Транспортом">
+                                        </label>
+                                    </div>
+                                </td>
+                            </table>
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_underground_back"  value="Назад">
+                                <input class="btn btn-primary" type="button" id="formelement_underground_next"  value="Далее">
+                            </div>
+                        </div>
+
+                        <div class="formelement" id="formelement_about_flat">
+                            <h1>О квартире</h1>
+                            <input class="form-control" name="num_of_rooms" type="number" id="flats" placeholder="Кол-во комнат" title="Введите количество комант в пределах от 0 до 3" min="0" max="3" step="1">
+                            <table class="flat_option">
+                                <tr>
+                                    <th>
+                                        <input class="form-control" name="flat_size" type="number" id="flat_size" placeholder="Размер квартиры" title="Введите площадь квартиры" min="0" max="150" step="0.1">
+                                    </th>
+                                    <th>
+                                        <input class="form-control" name="kitchen_size" type="number" id="kitchen_size" placeholder="Размер кухни" title="Введите площадь кухни" min="0" max="70" step="0.1">
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <input class="form-control" name="storey" type="number" id="storey" placeholder="Этаж" title="Введите этаж" min="0" max="30" step="1">
+                                    </th>
+                                    <th>
+                                        <input class="form-control" name="storeys" type="number" id="storeys" placeholder="Этажность" title="Введите этажность" min="0" max="30" step="1">
+                                    </th>
+                                </tr>
+                            </table>
+                            <table>
+                                <th>
+                                    <th>
+                                        <div class="form-check"id="radio_renovation">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="renovation" value="Без ремонта" id="no_renovation">
+                                                <label class="form-check-label" for="no_renovation">
+                                                    <p class="r">Без ремонта</p>
+                                                </label>    
+                                            </div>
+                                        </div>
+                                        <div class="form-check"id="radio_renovation">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="renovation" value="Косметический" id="cosmetic_renovation">
+                                                <label class="form-check-label" for="cosmetic_renovation">
+                                                    <p class="r">Косметический</p>
+                                                </label>    
+                                            </div>
+                                        </div>
+                                    </th>
+                                </th>
+                                <th>
+                                    <th>
+                                        <div class="form-check"id="radio_renovation">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="renovation" value="Дизайнерский" id="design_renovation">
+                                                <label class="form-check-label" for="design_renovation">
+                                                    <p class="r">Дизайнерский</p>
+                                                </label>    
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check"id="radio_renovation">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="renovation" value="Евроремонт" id="_renovation">
+                                                <label class="form-check-label" for="_renovation">
+                                                    <p class="r">Евроремонт</p>
+                                                </label>    
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check"id="radio_renovation">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="renovation" value="None" id="idk_renovation">
+                                                <label class="form-check-label" for="idk_renovation">
+                                                    <p class="r">Не знаю</p>
+                                                </label>    
+                                            </div>
+                                        </div>
+                                    </th>
+                                </th>
+                            </table>
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_about_flat_back"  value="Назад">
+                                <input class="btn btn-primary" type="button" id="formelement_about_flat_next"  value="Далее">
+                            </div>
+                        </div>
+
+                        <div class="formelement" id="formelement_about_building">
+                            <h1>О здании</h1>
+                            <input class="form-control" name="construction_date" type="number" id="date_constrcucted" placeholder="Год постройки" title="Введите год постройки", min="1900", max="2022", step="1">
+
+                            <table class="construction_type">
+                                <th>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Блочный" id="block_construction">
+                                            <label class="form-check-label" for="block_construction">
+                                                <p class="r">Блочный</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Кирпичный" id="brick_construction">
+                                            <label class="form-check-label" for="brick_construction">
+                                                <p class="r">Кирпичный</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Пенобетонный блок" id="foam_concrete_construction">
+                                            <label class="form-check-label" for="foam_concrete_construction">
+                                                <p class="r">Пенобетон</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Монолитно кирпичный" id="monolith_brick_construction">
+                                            <label class="form-check-label" for="monolith_brick_construction">
+                                                <p>Монолитно<br>кирпичный</p>
+                                            </label>
+                                        </div>                                  
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Монолитный" id="monolith_construction">
+                                            <label class="form-check-label" for="monolith_construction">
+                                                <p class="r">Монолитный</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Панельный" id="panel_constrction">
+                                            <label class="form-check-label" for="panel_constrction">
+                                                <p class="r">Панельный</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Сталинский" id="stalins_construction">
+                                            <label class="form-check-label" for="stalins_construction">
+                                                <p class="r">Сталинки</p>
+                                            </label>    
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="form-check"id="radio_construction">
+                                        <div class="inner_form_check">
+                                            <input class="form-check-input" type="radio" name="construction_type" value="Деревянный" id="wooden_construction">
+                                            <label class="form-check-label" for="wooden_construction">
+                                                <p class="r">Деревянный</p>
+                                            </label>    
+                                        </div>
+                                        
+                                        </div>
+                                        <div class="form-check"id="radio_construction">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="construction_type" value="None" id="idk_construction">
+                                            <label class="form-check-label" for="idk_construction">
+                                                <p class="r">Не знаю</p>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </th>
+                            </table>    
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_about_building_back"  value="Назад">
+                                <input class="btn btn-primary" type="button" id="formelement_about_building_next" value="Далее">
+                            </div>
+                        </div>
+
+                        <div class="formelement" id="formelement_walls">
+                            <h1>Перекрытия</h1>
+                            <table class="wall">
+                                <tr>
+                                    <th>
+                                        <div class="form-check" id="radio_wall">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="wall" value="Смешанные" id="mixed_walls">
+                                                <label class="form-check-label" for="mixed_walls">
+                                                    <p>Смешанные</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="form-check" id="radio_wall">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="wall" value="Железобетонные" id="reinforced_walls">
+                                                <label class="form-check-label" for="reinforced_walls">
+                                                    <p>Железобетон</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        <div class="form-check" id="radio_wall">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="wall" value="Деревянные" id="wooden_walls">
+                                                <label class="form-check-label" for="wooden_walls">
+                                                    <p>Деревянные</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>
+                                        <div class="form-check" id="radio_wall">
+                                            <div class="inner_form_check">
+                                                <input class="form-check-input" type="radio" name="wall" value="None" id="idk_walls">
+                                                <label class="form-check-label" for="idk_walls">
+                                                    <p>Не знаю</p>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </th>
+                                </tr>
+
+                            </table>
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="formelement_walls_back"  value="Назад">
+                                <input class="btn btn-primary" type="submit" id="formelement_about_building_find_out" value="Узнать">
+                            </div>
+
+                        </div>
+
+                        <div class="formelement" id="info_details">
+                            <div id="responseArea1"><p id="responseArea2"></p></div>
+                            <div id="map"></div>
+                            <div class="next_button">
+                                <input class="btn btn-primary" type="button" id="reload_btn" value="Узнать снова">
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+    <script type="module" src="{{ url_for('static', path='flats_up/flats.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+</body>
+</html>

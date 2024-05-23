@@ -1,0 +1,2405 @@
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+
+ /* first */
+@media (min-width:1200px){
+
+    @keyframes background-pan {
+        from {
+            background-position: 0% center;
+        }
+
+        to {
+            background-position: -200% center;
+        }
+    }
+
+
+    .all {
+        animation: background-pan 7s linear infinite;
+        background: linear-gradient(
+            0.25turn,
+            #44afc6,
+            #3f6b76,
+            #44afc6
+        );
+        background-size: 200%;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right */
+    #main {     
+        margin-left: 385px; /* should be equal to width of .sidenav + ticker */
+        padding-top: 4%;
+    } 
+
+
+
+    /* * TICKER  */
+    .ticker {
+        margin-left: 300px; /* should be equal to width of .sidenav */
+        position: fixed;
+        overflow: hidden;
+    }
+
+    .scroll {
+        display: flex;
+    }
+
+    .ticker_item {
+        font-family: monospace; /* this is just for good looks */
+        color: #000;
+        font-size: 3.5em;
+        background: #fff;
+        white-space: nowrap;
+        font-weight: 500;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+    }
+
+    #ticker_1 {
+        animation: animate 50s linear infinite;
+        animation-delay: -50s;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+
+    #ticker_2 {
+        animation: animate2 50s linear infinite;
+        animation-delay: -25s;
+    }
+
+    @keyframes animate2 {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-200%);
+        }
+    }
+
+    .ticker_item span {
+        -webkit-text-stroke: 2px #418493;
+        color: transparent;
+    }
+
+
+
+    /* * On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+        .sidenav {padding-top: 15px;}
+        .sidenav a {font-size: 18px;}
+    }
+
+
+
+    /* * The side navigation menu */
+    .sidenav {
+        height: 100%; /* 100% Full-height */
+        width: 300px;
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #418493;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 10%; /* Place content % from the top */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 6px 6px 0px 28px;
+        text-decoration: none;
+        font-family: monospace, "Times New Roman", serif;
+        font-size: 1.4em;
+        margin: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        color: #cdcdcd;
+        display: block;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.5em;
+    }
+
+
+
+    /* * main card info */
+    .formelement h1{
+        font-family: monospace;
+        font-size: 2.5em;
+        font-weight: 600;
+    }
+
+    .formclass {
+        position: fixed;
+        display: block;
+        background-color: #418493;
+        border-right: solid 2px #387382;
+        margin-left: 2%;
+        height: 83%;
+        width: 45%;
+        border-radius: 10px;
+        padding: 2%;
+        color: #fff;
+        transition: 3s;
+    }
+
+    .mapsclass {
+        position: fixed;
+        display: block;
+        background-color: #3e7e8c;
+        margin-left: 22%;
+        height: 83%;
+        width: 45%; 
+        border-radius: 10px;
+        padding: 2%;
+        transition: 3s;
+    }
+
+
+
+    /* *  form elements  */
+    .formelements {
+        position: fixed;
+        overflow: hidden;
+        overflow-inline: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .formelement{
+        display: inline-block;
+        width: inherit;
+        height: 100%;
+    }
+
+    .address {
+        font-family: monospace;
+        font-size: 0.9em;
+        width: 500px;
+        margin-top: 10%;
+        margin-left: 3%;
+    }
+
+    .ymaps-2-1-79-search__suggest-item {
+        font-family: monospace;
+        color: rgba(0, 0, 0, 0.642);
+    }
+
+    .ymaps-2-1-79-search__suggest-highlight {
+        font-family: monospace;
+        color: black;
+    }
+
+    #suggest {
+        font-family: monospace;
+        margin-left: 5%;
+        width: 400px;   
+    }
+
+    #underground_station{
+        font-family: monospace;
+        margin-top: 5%;
+        margin-left: 11%;
+        width: 200px;
+    }
+
+    #underground_time {
+        font-family: monospace;
+        margin-top: 2%;
+        margin-left: 11%;
+        width: 200px;
+    }
+
+    .manual{  
+        font-family: monospace;
+        margin-top: 4%;
+        margin-left: 7%;
+    }
+
+    .get_type {
+        font-family: monospace;
+        margin-top: 1%;
+        margin-left: 14%;
+    }
+
+    .btn{
+        font-family: monospace;
+        border-radius: 3px;
+        border-color: #5cb8cd;
+        background-color: #5cb8cd;
+    }
+
+    #flats {
+        margin-top: 2%;
+        margin-left: 12.5%;
+        width: 185px;
+        height: 30px;
+        font-family: monospace;
+    }
+
+    #flat_size{
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 185px;
+        height: 30px;
+        font-family: monospace;
+
+    }
+
+    #kitchen_size{
+        margin-bottom: 10px;
+        width: 185px;
+        height: 30px;
+        font-family: monospace;
+
+    }
+
+    #storey{
+        width: 185px;
+        height: 30px;
+        font-family: monospace;
+
+    }
+
+    #storeys{
+        width: 185px;
+        height: 30px;
+        font-family: monospace;
+
+    }
+
+    .flat_option
+    {
+        margin-top: 1%;
+        margin-left: 6%;
+
+    }
+
+
+    .radiobtns{
+        margin-top: 1%;
+        margin-left: 7%;
+    }
+
+    .form-check{
+        margin-right: 40px;
+    }
+
+    .form-check:checked::after{
+        background-color: #000;
+    }
+
+    .form-check-label img
+    {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        transition: 1s;
+    }
+
+    #find{
+        width: 70px;
+        height: 40px;
+        margin-top: 2%;
+        margin-left: 17%;
+    }
+
+    #map {
+        margin-top: 10px;
+        height: 72%;
+        width: 37%; 
+    }
+
+    #date_constrcucted {
+        margin-left: 14%;
+        width: 200px;
+    }
+
+    #radio_construction{
+        border: solid 2px #c8c8c8;
+        color: #c8c8c8;
+        width: 200px;
+        height: 50px;
+        border-radius: 20px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 1em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_construction label{
+        transition: 300ms;
+    }
+
+    #radio_construction:hover{
+        border: solid 5px #fff;
+        color: #fff;
+        font-size: 1.5em;
+        height: 80px;
+    }
+
+    .form-check-input:checked + label{
+        color: #fff;
+        font-size: 1.1em;
+    }
+
+    .form-check-input:checked {
+        border: solid 1px #fff;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    #radio_construction input{
+        transition: 400ms;
+    }
+
+    #radio_construction:hover input{
+        margin-top: 15%;
+        margin-left: -28px;
+    }
+
+    #radio_construction:hover p.r{
+        margin-top: 17px;
+
+    }
+
+    .r{
+        transition: 300ms;
+    }
+
+
+
+    .inner_form_check {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    .inner_form_check p{
+        cursor: pointer;
+    }
+
+    .inner_form_check input {
+        margin-top: 9%;
+        margin-left: 30px;
+    }
+
+    .construction_type{
+        margin-top: 1%;
+        margin-left: 3%;
+    }
+
+    .wall{
+        cursor: pointer;
+        margin-top: 2%;
+        margin-left: 3%; 
+    }
+
+    #radio_wall p{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover p{
+        margin-top: 20px;
+    }
+
+    #radio_wall input{
+        transition: 400ms;
+    }
+
+    #radio_wall:hover input{
+        margin-top: 15%;
+        margin-left: -28px;
+    }
+
+    #radio_wall{
+        border: solid 2px #c8c8c8;
+        color: #c8c8c8;
+        width: 210px;
+        height: 50px;
+        border-radius: 20px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 1em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_wall label{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover{
+        border: solid 5px #fff;
+        color: #fff;
+        font-size: 1.2em;
+        height: 80px;
+    }
+
+    .next_button {
+        margin-top: 1.8%;
+        margin-left: 10%;
+        margin-right: 5px;
+    }
+
+    #formelement_place_back, #formelement_underground_back, #formelement_about_flat_back, #formelement_about_building_back, #formelement_about_building_back, #formelement_walls_back {
+        display: none;
+        margin-right: 9px;
+    }
+
+    #responseArea {
+        color: white;
+    }
+
+    #infodiv {
+        float: right;
+        width: 50%;
+    }
+
+    #infodiv1 {
+        float: left;
+        width: 50%;
+    }
+
+    #responseArea{
+        font-family: monospace;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    #radio_renovation{
+        border: solid 2px #c8c8c8;
+        color: #c8c8c8;
+        width: 200px;
+        height: 50px;
+        border-radius: 20px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_renovation label{
+        transition: 300ms;
+    }
+
+    #radio_renovation:hover{
+        border: solid 5px #fff;
+        color: #fff;
+        font-size: 1.2em;
+        height: 80px;
+    }
+
+
+    #radio_renovation input{
+        transition: 400ms;
+    }
+
+    #radio_renovation:hover input{
+        margin-top: 15%;
+        margin-left: -28px;
+    }
+
+    #radio_renovation:hover p.r{
+        margin-top: 17px;
+
+    }
+
+    #reload_btn {
+        display: none;
+    }
+
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    max-width: 100%;
+}
+
+ /* ! 500px - 1200px */
+
+/* second */
+
+@media (min-width:500px) and (max-width: 1200px){
+
+    @keyframes background-pan {
+        from {
+            background-position: 0% center;
+        }
+
+        to {
+            background-position: -200% center;
+        }
+    }
+
+
+    .all {
+        animation: background-pan 7s linear infinite;
+        background: linear-gradient(
+            0.25turn,
+            #44afc6,
+            #3f6b76,
+            #44afc6
+        );
+        background-size: 200%;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right */
+    #main {     
+        margin-left: 275px; /* should be equal to width of .sidenav + ticker */
+        padding-top: 4%;
+    } 
+
+
+
+    /* * TICKER  */
+    .ticker {
+        margin-left: 190px; /* should be equal to width of .sidenav */
+        position: fixed;
+        overflow: hidden;
+    }
+
+    .scroll {
+        display: flex;
+    }
+
+    .ticker_item {
+        font-family: monospace; /* this is just for good looks */
+        color: #000;
+        font-size: 3.5em;
+        background: #fff;
+        white-space: nowrap;
+        font-weight: 500;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+    }
+
+    #ticker_1 {
+        animation: animate 50s linear infinite;
+        animation-delay: -50s;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+
+    #ticker_2 {
+        animation: animate2 50s linear infinite;
+        animation-delay: -25s;
+    }
+
+    @keyframes animate2 {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-200%);
+        }
+    }
+
+    .ticker_item span {
+        -webkit-text-stroke: 2px #418493;
+        color: transparent;
+    }
+
+
+    /* * The side navigation menu */
+    .sidenav {
+        height: 100%; /* 100% Full-height */
+        width: 190px;
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #418493;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 10%; /* Place content % from the top */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 6px 6px 0px 28px;
+        text-decoration: none;
+        font-family: monospace, "Times New Roman", serif;
+        font-size: 0.8em;
+        margin: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        color: #cdcdcd;
+        display: block;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1em;
+    }
+
+
+
+    /* * main card info */
+    .formelement h1{
+        font-family: monospace;
+        font-size: 2.5em;
+        font-weight: 600;
+    }
+
+    .formclass {
+        position: fixed;
+        display: block;
+        background-color: #418493;
+        border-right: solid 2px #387382;
+        margin-left: 2%;
+        height: 83%;
+        width: 45%;
+        border-radius: 10px;
+        padding: 2%;
+        color: #fff;
+        transition: 3s;
+    }
+
+    .mapsclass {
+        position: fixed;
+        display: block;
+        background-color: #3e7e8c;
+        margin-left: 2%;
+        height: 83%;
+        width: 45%; 
+        border-radius: 10px;
+        padding: 2%;
+        transition: 3s;
+    }
+
+
+
+    /* *  form elements  */
+    .formelements {
+        position: fixed;
+        overflow: hidden;
+        overflow-inline: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .formelement{
+        display: inline-block;
+        width: inherit;
+        height: 100%;
+    }
+
+    .address {
+        font-family: monospace;
+        font-size: 0.8em;
+        width: 300px;
+        margin-top: 10%;
+        margin-left: 2%;
+    }
+
+    .ymaps-2-1-79-search__suggest-item {
+        font-family: monospace;
+        color: rgba(0, 0, 0, 0.642);
+    }
+
+    .ymaps-2-1-79-search__suggest-highlight {
+        font-family: monospace;
+        color: black;
+    }
+
+    #suggest {
+        font-family: monospace;
+        margin-left: 5%;
+        width: 200px;   
+    }
+
+    #underground_station{
+        font-family: monospace;
+        margin-top: 5%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    #underground_time {
+        font-family: monospace;
+        margin-top: 2%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    .manual{  
+        font-family: monospace;
+        font-size: 0.7em;
+        margin-top: 6%;
+        margin-left: 4%;
+    }
+
+    .get_type {
+        font-family: monospace;
+        margin-top: 1%;
+        margin-left: 7%;
+    }
+
+    .btn{
+        font-family: monospace;
+        border-radius: 3px;
+        border-color: #5cb8cd;
+        background-color: #5cb8cd;
+    }
+
+    #flats {
+        margin-top: 2%;
+        margin-left: 9%;
+        font-size: 0.6em;
+        width: 120px;
+        height: 20px;
+        font-family: monospace;
+    }
+
+    #flat_size{
+        margin-right: 10px;
+        margin-bottom: 10px;
+        font-size: 0.6em;
+        width: 120px;
+        height: 20px;
+        font-family: monospace;
+
+    }
+
+    #kitchen_size{
+        margin-bottom: 10px;
+        font-size: 0.6em;
+        width: 120px;
+        height: 20px;
+        font-family: monospace;
+
+    }
+
+    #storey{
+        font-size: 0.6em;
+        width: 120px;
+        height: 20px;
+        font-family: monospace;
+
+    }
+
+    #storeys{
+        font-size: 0.6em;
+        width: 120px;
+        height: 20px;
+        font-family: monospace;
+
+    }
+
+    .flat_option
+    {
+        margin-top: 1%;
+        margin-left: 1%;
+
+    }
+
+
+    .radiobtns{
+        margin-top: 1%;
+        margin-left: 0.5%;
+    }
+
+    .form-check{
+        margin-right: 40px;
+    }
+
+    .form-check:checked::after{
+        background-color: #000;
+    }
+
+    .form-check-label img
+    {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        transition: 1s;
+    }
+
+    #find{
+        width: 70px;
+        height: 40px;
+        margin-top: 2%;
+        margin-left: 17%;
+    }
+
+    #map {
+        margin-top: 10px;
+        height: 72%;
+        width: 40%; 
+    }
+
+    #date_constrcucted {
+        margin-left: 7%;
+        font-size: 0.7em;
+        width: 130px;
+        height: 30px;
+    }
+
+    #radio_construction{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 100px;
+        height: 25px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.5em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_construction label{
+        transition: 300ms;
+    }
+
+    #radio_construction:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.6em;
+        height: 40px;
+    }
+
+    .form-check-input:checked + label{
+        color: #fff;
+        font-size: 1em;
+    }
+
+    .form-check-input:checked {
+        border: solid 1px #fff;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    #radio_construction input{
+        transition: 400ms;
+    }
+
+    #radio_construction:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_construction:hover p.r{
+        margin-top: 12px;
+
+    }
+
+    .r{
+        transition: 300ms;
+    }
+
+
+
+    .inner_form_check {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    .inner_form_check p{
+        cursor: pointer;
+    }
+
+    .inner_form_check input {
+        margin-top: 9%;
+        margin-left: 30px;
+    }
+
+    .construction_type{
+        margin-top: 1%;
+        margin-left: 3%;
+    }
+
+    .wall{
+        cursor: pointer;
+        margin-top: 2%;
+        margin-left: 3%; 
+    }
+
+    #radio_wall p{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover p{
+        margin-top: 10px;
+    }
+
+    #radio_wall input{
+        transition: 400ms;
+    }
+
+    #radio_wall:hover input{
+        margin-top: 12%;
+    }
+
+    #radio_wall{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 100px;
+        height: 25px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.5em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_wall label{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.6em;
+        height: 40px;
+    }
+
+    .next_button {
+        margin-top: 1.8%;
+        margin-left: 6%;
+        margin-right: 5px;
+    }
+
+    #formelement_place_back, #formelement_underground_back, #formelement_about_flat_back, #formelement_about_building_back, #formelement_about_building_back, #formelement_walls_back {
+        display: none;
+        margin-right: 9px;
+    }
+
+    #responseArea {
+        color: white;
+    }
+
+    #infodiv {
+        float: right;
+        width: 50%;
+    }
+
+    #infodiv1 {
+        float: left;
+        width: 50%;
+    }
+
+    #responseArea{
+        font-family: monospace;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    #radio_renovation{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 100px;
+        height: 25px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.5em;
+        font-weight: 800;
+        margin: 10px;
+    }
+
+    #radio_renovation label{
+        transition: 300ms;
+    }
+
+    #radio_renovation:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.6em;
+        height: 40px;
+    }
+
+
+    #radio_renovation input{
+        transition: 400ms;
+    }
+
+    #radio_renovation:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_renovation:hover p.r{
+        margin-top: 12px;
+
+    }
+
+    #reload_btn {
+        display: none;
+    }
+
+}
+
+/* ! 390 < 500 */
+
+@media (min-width: 390px) and (max-width: 500px){
+
+    @keyframes background-pan {
+        from {
+            background-position: 0% center;
+        }
+
+        to {
+            background-position: -200% center;
+        }
+    }
+
+
+    .all {
+        animation: background-pan 7s linear infinite;
+        background: linear-gradient(
+            0.25turn,
+            #44afc6,
+            #3f6b76,
+            #44afc6
+        );
+        background-size: 200%;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right */
+    #main {     
+        margin-left: 12%; /* should be equal to width of .sidenav + ticker */
+        padding-top: 4%;
+    } 
+
+
+
+    /* * TICKER  */
+    .ticker {
+        margin-left: 2px; /* should be equal to width of .sidenav */
+        position: fixed;
+        overflow: hidden;
+    }
+
+    .scroll {
+        display: flex;
+    }
+
+    .ticker_item {
+        font-family: monospace; /* this is just for good looks */
+        color: #000;
+        font-size: 2em;
+        background: #fff;
+        white-space: nowrap;
+        font-weight: 500;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+    }
+
+    #ticker_1 {
+        animation: animate 50s linear infinite;
+        animation-delay: -50s;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+
+    #ticker_2 {
+        animation: animate2 50s linear infinite;
+        animation-delay: -25s;
+    }
+
+    @keyframes animate2 {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-200%);
+        }
+    }
+
+    .ticker_item span {
+        -webkit-text-stroke: 2px #418493;
+        color: transparent;
+    }
+
+
+    /* * The side navigation menu */
+    .sidenav {
+        display: none;
+        height: 100%; /* 100% Full-height */
+        width: 0;
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #418493;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 10%; /* Place content % from the top */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 6px 6px 0px 28px;
+        text-decoration: none;
+        font-family: monospace, "Times New Roman", serif;
+        font-size: 0.8em;
+        margin: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        color: #cdcdcd;
+        display: block;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1em;
+    }
+
+
+
+    /* * main card info */
+    .formelement h1{
+        font-family: monospace;
+        font-size: 2.3em;
+        font-weight: 600;
+    }
+
+    .formclass {
+        position: fixed;
+        display: block;
+        background-color: #418493;
+        border-right: solid 2px #387382;
+        margin-top: 9%;
+        margin-left: 2%;
+        height: 83%;
+        width: 84%;
+        border-radius: 10px;
+        padding: 2%;
+        color: #fff;
+        transition: 3s;
+    }
+
+    .mapsclass {
+        margin-top: 9%;
+        position: fixed;
+        display: block;
+        background-color: #3e7e8c;
+        margin-left: 2%;
+        height: 83%;
+        width: 45%; 
+        border-radius: 10px;
+        padding: 2%;
+        transition: 3s;
+    }
+
+
+
+    /* *  form elements  */
+    .formelements {
+        position: fixed;
+        overflow: hidden;
+        overflow-inline: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .formelement{
+        display: inline-block;
+        width: inherit;
+        height: 100%;
+    }
+
+    .address {
+        font-family: monospace;
+        font-size: 1em;
+        width: 300px;
+        margin-top: 10%;
+        margin-left: 2%;
+    }
+
+    .ymaps-2-1-79-search__suggest-item {
+        font-family: monospace;
+        color: rgba(0, 0, 0, 0.642);
+    }
+
+    .ymaps-2-1-79-search__suggest-highlight {
+        font-family: monospace;
+        color: black;
+    }
+
+    #suggest {
+        font-family: monospace;
+        margin-left: 5%;
+        width: 200px;   
+    }
+
+    #underground_station{
+        font-family: monospace;
+        margin-top: 9%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    #underground_time {
+        font-family: monospace;
+        margin-top: 2%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    .manual{  
+        font-family: monospace;
+        font-size: 0.9em;
+        width: 250px;
+        margin-top: 6%;
+        margin-left: 4%;
+    }
+
+    .get_type {
+        font-family: monospace;
+        margin-top: 1%;
+        margin-left: 7%;
+    }
+
+    .btn{
+        font-family: monospace;
+        border-radius: 3px;
+        border-color: #5cb8cd;
+        background-color: #5cb8cd;
+    }
+
+    #flats {
+        margin-top: 2%;
+        margin-left: 20%;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+        font-family: monospace;
+    }
+
+    #flat_size{
+        margin-right: 10px;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #kitchen_size{
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #storey{
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #storeys{
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    .flat_option
+    {
+        margin-top: 1%;
+        margin-left: -1px;
+
+    }
+
+
+    .radiobtns{
+        margin-top: 1%;
+        margin-left: 0.5%;
+    }
+
+    .form-check{
+        margin-right: 40px;
+    }
+
+    .form-check:checked::after{
+        background-color: #000;
+    }
+
+    .form-check-label img
+    {
+        cursor: pointer;
+        width: 100px;
+        height: 100px;
+        transition: 1s;
+    }
+
+    #find{
+        width: 70px;
+        height: 40px;
+        margin-top: 2%;
+        margin-left: 17%;
+    }
+
+    #map {
+        margin-top: 10px;
+        height: 65%;
+        width: 79.5%; 
+    }
+
+    #date_constrcucted {
+        margin-left: 25%;
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+    }
+
+    #radio_construction{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 145px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_construction label{
+        transition: 300ms;
+    }
+
+    #radio_construction:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.9em;
+        height: 60px;
+    }
+
+    .form-check-input:checked + label{
+        color: #fff;
+        font-size: 1em;
+    }
+
+    .form-check-input:checked {
+        border: solid 1px #fff;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    #radio_construction input{
+        transition: 400ms;
+    }
+
+    #radio_construction:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_construction:hover p.r{
+        margin-top: 12px;
+
+    }
+
+    .r{
+        transition: 300ms;
+    }
+
+
+
+    .inner_form_check {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    .inner_form_check p{
+        cursor: pointer;
+    }
+
+    .inner_form_check input {
+        margin-top: 9%;
+        margin-left: 30px;
+    }
+
+    .construction_type{
+        margin-top: 1%;
+        margin-left: 0;
+    }
+
+    .wall{
+        cursor: pointer;
+        margin-top: 2%;
+        margin-left: 0px; 
+    }
+
+    #radio_wall p{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover p{
+        margin-top: 10px;
+    }
+
+    #radio_wall input{
+        transition: 400ms;
+    }
+
+    #radio_wall:hover input{
+        margin-top: 12%;
+    }
+
+    #radio_wall{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 150px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_wall label{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.9em;
+        height: 60px;
+    }
+
+    .next_button {
+        margin-top: 5%;
+        margin-left: 14%;
+    }
+
+    #formelement_place_back, #formelement_underground_back, #formelement_about_flat_back, #formelement_about_building_back, #formelement_about_building_back, #formelement_walls_back {
+        margin-right: 9px;
+    }
+
+    #responseArea {
+        color: white;
+    }
+
+    #infodiv {
+        float: right;
+        width: 50%;
+    }
+
+    #infodiv1 {
+        float: left;
+        width: 50%;
+    }
+
+    #responseArea{
+        font-family: monospace;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    #radio_renovation{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 145px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_renovation label{
+        transition: 300ms;
+    }
+
+    #radio_renovation:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.9em;
+        height: 60px;
+    }
+
+
+    #radio_renovation input{
+        transition: 400ms;
+    }
+
+    #radio_renovation:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_renovation:hover p.r{
+        margin-top: 12px;
+
+    }
+
+}
+
+/* !  < 390 */
+
+@media (max-width: 390px){
+
+    @keyframes background-pan {
+        from {
+            background-position: 0% center;
+        }
+
+        to {
+            background-position: -200% center;
+        }
+    }
+
+
+    .all {
+        animation: background-pan 7s linear infinite;
+        background: linear-gradient(
+            0.25turn,
+            #44afc6,
+            #3f6b76,
+            #44afc6
+        );
+        background-size: 200%;
+        height: 100%;
+        width: 100%;
+    }
+
+    /* Style page content - use this if you want to push the page content to the right */
+    #main {     
+        margin-left: 12%; /* should be equal to width of .sidenav + ticker */
+        padding-top: 4%;
+    } 
+
+
+
+    /* * TICKER  */
+    .ticker {
+        margin-left: 2px; /* should be equal to width of .sidenav */
+        position: fixed;
+        overflow: hidden;
+    }
+
+    .scroll {
+        display: flex;
+    }
+
+    .ticker_item {
+        font-family: monospace; /* this is just for good looks */
+        color: #000;
+        font-size: 2em;
+        background: #fff;
+        white-space: nowrap;
+        font-weight: 500;
+        text-transform: uppercase;
+        writing-mode: vertical-lr;
+        text-orientation: upright;
+    }
+
+    #ticker_1 {
+        animation: animate 50s linear infinite;
+        animation-delay: -50s;
+    }
+
+    @keyframes animate {
+        0% {
+            transform: translateY(100%);
+        }
+        100% {
+            transform: translateY(-100%);
+        }
+    }
+
+    #ticker_2 {
+        animation: animate2 50s linear infinite;
+        animation-delay: -25s;
+    }
+
+    @keyframes animate2 {
+        0% {
+            transform: translateY(0%);
+        }
+        100% {
+            transform: translateY(-200%);
+        }
+    }
+
+    .ticker_item span {
+        -webkit-text-stroke: 2px #418493;
+        color: transparent;
+    }
+
+
+    /* * The side navigation menu */
+    .sidenav {
+        display: none;
+        height: 100%; /* 100% Full-height */
+        width: 0;
+        position: fixed; /* Stay in place */
+        z-index: 1; /* Stay on top */
+        top: 0; /* Stay at the top */
+        left: 0;
+        background-color: #418493;
+        overflow-x: hidden; /* Disable horizontal scroll */
+        padding-top: 10%; /* Place content % from the top */
+    }
+
+    /* The navigation menu links */
+    .sidenav a {
+        padding: 6px 6px 0px 28px;
+        text-decoration: none;
+        font-family: monospace, "Times New Roman", serif;
+        font-size: 0.8em;
+        margin: 20px;
+        margin-left: 0;
+        margin-right: 0;
+        color: #cdcdcd;
+        display: block;
+        transition: 0.3s;
+        font-weight: 600;
+    }
+
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1.1em;
+    }
+
+
+
+    /* * main card info */
+    .formelement h1{
+        font-family: monospace;
+        font-size: 2em;
+        font-weight: 600;
+    }
+
+    .formclass {
+        position: fixed;
+        display: block;
+        background-color: #418493;
+        border-right: solid 2px #387382;
+        margin-top: 9%;
+        margin-left: 2%;
+        height: 83%;
+        width: 84%;
+        border-radius: 10px;
+        padding: 2%;
+        color: #fff;
+        transition: 3s;
+    }
+
+    .mapsclass {
+        margin-top: 9%;
+        position: fixed;
+        display: block;
+        background-color: #3e7e8c;
+        margin-left: 2%;
+        height: 83%;
+        width: 45%; 
+        border-radius: 10px;
+        padding: 2%;
+        transition: 3s;
+    }
+
+
+
+    /* *  form elements  */
+    .formelements {
+        position: fixed;
+        overflow: hidden;
+        overflow-inline: hidden;
+        width: 100%;
+        height: 100%;
+    }
+
+    .formelement{
+        display: inline-block;
+        width: inherit;
+        height: 100%;
+    }
+
+    .address {
+        font-family: monospace;
+        font-size: 1em;
+        width: 300px;
+        margin-top: 10%;
+        margin-left: 2%;
+    }
+
+    .ymaps-2-1-79-search__suggest-item {
+        font-family: monospace;
+        color: rgba(0, 0, 0, 0.642);
+    }
+
+    .ymaps-2-1-79-search__suggest-highlight {
+        font-family: monospace;
+        color: black;
+    }
+
+    #suggest {
+        font-family: monospace;
+        margin-left: 5%;
+        width: 200px;   
+    }
+
+    #underground_station{
+        font-family: monospace;
+        margin-top: 9%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    #underground_time {
+        font-family: monospace;
+        margin-top: 2%;
+        margin-left: 6%;
+        width: 200px;
+    }
+
+    .manual{  
+        font-family: monospace;
+        font-size: 0.9em;
+        width: 250px;
+        margin-top: 6%;
+        margin-left: 4%;
+    }
+
+    .get_type {
+        font-family: monospace;
+        margin-top: 1%;
+        margin-left: 7%;
+    }
+
+    .btn{
+        font-family: monospace;
+        border-radius: 3px;
+        border-color: #5cb8cd;
+        background-color: #5cb8cd;
+    }
+
+    #flats {
+        margin-top: 2%;
+        margin-left: 20%;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 135px;
+        height: 40px;
+        font-family: monospace;
+    }
+
+    #flat_size{
+        margin-right: 10px;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 135px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #kitchen_size{
+        margin-bottom: 20px;
+        font-size: 0.9em;
+        width: 135px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #storey{
+        font-size: 0.9em;
+        width: 135px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    #storeys{
+        font-size: 0.9em;
+        width: 135px;
+        height: 40px;
+        font-family: monospace;
+
+    }
+
+    .flat_option
+    {
+        margin-top: 1%;
+        margin-left: -1px;
+
+    }
+
+
+    .radiobtns{
+        margin-top: 1%;
+        margin-left: -1px;
+    }
+
+    .form-check{
+        margin-right: 40px;
+    }
+
+    .form-check:checked::after{
+        background-color: #000;
+    }
+
+    .form-check-label img
+    {
+        cursor: pointer;
+        width: 80px;
+        height: 80px;
+        transition: 1s;
+    }
+
+    #find{
+        width: 70px;
+        height: 40px;
+        margin-top: 2%;
+        margin-left: 17%;
+    }
+
+    #map {
+        margin-top: 10px;
+        height: 65%;
+        width: 79.5%; 
+    }
+
+    #date_constrcucted {
+        margin-left: 25%;
+        font-size: 0.9em;
+        width: 150px;
+        height: 40px;
+    }
+
+    #radio_construction{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 125px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_construction label{
+        transition: 300ms;
+    }
+
+    #radio_construction:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.8em;
+        height: 50px;
+    }
+
+    .form-check-input:checked + label{
+        color: #fff;
+        font-size: 1em;
+    }
+
+    .form-check-input:checked {
+        border: solid 1px #fff;
+        color: #fff;
+        font-size: 1em;
+    }
+
+    #radio_construction input{
+        transition: 400ms;
+    }
+
+    #radio_construction:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_construction:hover p.r{
+        margin-top: 12px;
+
+    }
+
+    .r{
+        transition: 300ms;
+    }
+
+
+
+    .inner_form_check {
+        cursor: pointer;
+        padding-left: 5px;
+    }
+
+    .inner_form_check p{
+        cursor: pointer;
+    }
+
+    .inner_form_check input {
+        margin-top: 9%;
+        margin-left: 30px;
+    }
+
+    .construction_type{
+        margin-top: 1%;
+        margin-left: 0;
+    }
+
+    .wall{
+        cursor: pointer;
+        margin-top: 2%;
+        margin-left: 0px; 
+    }
+
+    #radio_wall p{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover p{
+        margin-top: 10px;
+    }
+
+    #radio_wall input{
+        transition: 400ms;
+    }
+
+    #radio_wall:hover input{
+        margin-top: 12%;
+    }
+
+    #radio_wall{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 125px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_wall label{
+        transition: 300ms;
+    }
+
+    #radio_wall:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.8em;
+        height: 50px;
+    }
+
+    .next_button {
+        margin-top: 5%;
+        margin-left: 14%;
+    }
+
+    #formelement_place_back, #formelement_underground_back, #formelement_about_flat_back, #formelement_about_building_back, #formelement_about_building_back, #formelement_walls_back {
+        margin-right: 9px;
+    }
+
+    #responseArea {
+        color: white;
+    }
+
+    #infodiv {
+        float: right;
+        width: 50%;
+    }
+
+    #infodiv1 {
+        float: left;
+        width: 50%;
+    }
+
+    #responseArea{
+        font-family: monospace;
+        font-size: 1.2em;
+        font-weight: 600;
+    }
+
+    #radio_renovation{
+        border: solid 1px #c8c8c8;
+        color: #c8c8c8;
+        width: 129px;
+        height: 45px;
+        border-radius: 10px;
+        transition: 300ms;
+        text-align: center;
+        font-family: monospace;
+        font-size: 0.8em;
+        font-weight: 800;
+        margin: 10px;
+        margin-left: 0;
+    }
+
+    #radio_renovation label{
+        transition: 300ms;
+    }
+
+    #radio_renovation:hover{
+        border: solid 2px #fff;
+        color: #fff;
+        font-size: 0.8em;
+        height: 50px;
+    }
+
+
+    #radio_renovation input{
+        transition: 400ms;
+    }
+
+    #radio_renovation:hover input{
+        margin-top: 15%;
+    }
+
+    #radio_renovation:hover p.r{
+        margin-top: 12px;
+
+    }
+
+}
+
+#responseArea2 {
+    font-family: monospace;
+}
+
+#formelement_about_load{
+    margin-right: 10px;
+}
+
+
+/*!!!!! end */
+
+#underground_time:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#underground_time:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#underground_time:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#underground_time:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#underground_time:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#underground_time:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#flats:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flats:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#flats:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flats:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#flats:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flats:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#flat_size:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flat_size:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#flat_size:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flat_size:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#flat_size:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#flat_size:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#kitchen_size:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#kitchen_size:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#kitchen_size:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#kitchen_size:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#kitchen_size:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#kitchen_size:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#storey:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storey:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#storey:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storey:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#storey:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storey:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+
+#storeys:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storeys:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#storeys:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storeys:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#storeys:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#storeys:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#date_constrcucted:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#date_constrcucted:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+#date_constrcucted:focus:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#date_constrcucted:focus:invalid {
+    border-color: red;
+    color: red;
+    box-shadow: none;
+}
+
+#date_constrcucted:focus:required:valid {
+    border-color: green;
+    color: black;
+    box-shadow: none;
+}
+
+#date_constrcucted:focus:required:invalid {
+    border-color: red;
+    color: black;
+    box-shadow: none;
+}
+
+

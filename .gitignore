@@ -1,5 +1,6 @@
 ### Python template
 
+sql_app.db
 certbot/
 ollama/
 deploy/
