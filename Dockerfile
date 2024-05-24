@@ -13,7 +13,7 @@ RUN pip install --no-binary h5py h5py
 # install requirements
 RUN pip install -r requirements.txt
 
-WORKDIR /app
+WORKDIR /
 
 # Removing gcc
 RUN apt-get purge -y \

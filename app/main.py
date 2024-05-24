@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request, Depends, UploadFile
+import aiofiles
 from urllib.parse import unquote
 import io
 from fastapi.responses import RedirectResponse, HTMLResponse, FileResponse
@@ -38,24 +39,18 @@ def main():
         return templates.TemplateResponse(
             'site.html', context={'request': request})
 
-    @app.exception_handler(404)
-    def custom_404_handler(request: Request, __):
-        return RedirectResponse(url='/')
-
     @app.post('/uploadfile/')
     async def upload_file(file: UploadFile):
         content = await file.read()
-        image = Image.open(io.BytesIO(content))
-        image.save(f'app/static/files/{file.filename}')
+        # image = Image.open(io.BytesIO(content))
+        # image.save(f'app/static/{file.filename}')
+        async with aiofiles.open(f'app/static/{file.filename}', 'wb') as out_file:
+            await out_file.write(content)  # async write
         return {'filename': file.filename}
 
     @app.get('/getfile/{file}')
     async def get_file(file: str):
-        return FileResponse(f'app/static/files/{unquote(file)}')
-
-    @app.post('/item/')
-    def create_item(items: schemas.Item, db: Session = Depends(get_db)):
-        ...
+        return FileResponse(f'app/static/{unquote(file)}')
 
     @app.post('/items/')
     def create_items(items: list[schemas.Item], db: Session = Depends(get_db)):
@@ -103,6 +98,10 @@ def main():
         prediction = str(prediction)
 
         return {"Итог": prediction}
+
+    @app.exception_handler(404)
+    def custom_404_handler(request: Request, __):
+        return RedirectResponse(url='/')
 
     return app
 
